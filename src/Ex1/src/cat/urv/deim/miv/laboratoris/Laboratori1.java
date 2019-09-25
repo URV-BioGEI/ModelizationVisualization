@@ -2,6 +2,8 @@ package cat.urv.deim.miv.laboratoris;
 
 import cat.urv.deim.miv.Application;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+
 public class Laboratori1 extends Application {
 
 	public static final long serialVersionUID = 1L;
@@ -11,6 +13,22 @@ public class Laboratori1 extends Application {
 	}
 
 	public void paint() {
+		//defineDrawLine(0, 0, 100, 100);
+		//defineDrawLine(200, 200, 600, 700);
+		defineDrawLine(200, 200, 200, 300);  // vertical
+		defineDrawLine(200, 300, 200, 200);  // vertical inversa
+
+		defineDrawLine(200, 200, 400, 200);  // horitzontal
+		defineDrawLine(500, 300, 300, 300);  // horitzontal inversa
+
+		defineDrawLine(100, 100, 200, 200);  // m = 1
+		defineDrawLine(400, 400, 300, 300);  // m = 1 inversa
+
+
+		//defineDrawLine(0, 0, -15, -16);
+		//defineDrawLine(2, 20, 1, -7);
+		//defineDrawLine(-24, 20, 46, -71);
+
 
 		/*int width = getPanelWidth();
 		int height = getPanelHeight();
@@ -98,7 +116,7 @@ public class Laboratori1 extends Application {
 				Y += IncYr;
 				av += avR;
 			}
-		} while (X != x2);
+		} while (X != x2 || Y != y2);
 	}
 
 	// Fi codi de l'alumne
