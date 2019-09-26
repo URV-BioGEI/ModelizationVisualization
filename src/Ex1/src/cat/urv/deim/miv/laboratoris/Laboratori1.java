@@ -13,10 +13,9 @@ public class Laboratori1 extends Application {
 	}
 
 	public void paint() {
-		//defineDrawLine(0, 0, 100, 100);
-		//defineDrawLine(200, 200, 600, 700);
+
 		setColor((float)0.9, (float)0.27, (float)0.27);
-		defineDrawLine(200, 200, 200, 300);  // vertical esquerra a dreta
+		defineDrawLine(200, 200, 200, 300);  // vertical baix a dalt
 		setColor((float)0.6, (float)0.4, (float)0);
 		defineDrawLine(300, 400, 300, 300);  // vertical inversa
 
@@ -40,7 +39,14 @@ public class Laboratori1 extends Application {
 		setColor((float)0.1, (float)0.8, (float)0.3);
 		defineDrawLine(100, 300, 250, 600);  // Recta amb pendent > 1 on els vèrtexs s’indiquen de dreta a esquerra. m = 300 / 150
 
-		setColor((float)0.9, (float)0.27, (float)0.27);
+		setColor((float)0, (float)0.9, (float)0.27);
+		defineDrawLine(550, 600, 400, 1000);  // Recta amb pendent negativa
+
+		setColor((float)0, (float)0, (float)0.9);
+		defineDrawLine(400, 600, 0, 1000);  // Recta amb pendent -1
+
+
+
 		//defineDrawLine(0, 0, -15, -16);
 		//defineDrawLine(2, 20, 1, -7);
 		//defineDrawLine(-24, 20, 46, -71);
