@@ -36,9 +36,31 @@ public class Laboratori2 extends Application {
 	// Hint: Pots utilitzar l'algorisme Scan line fill polygon
 	
 	// Inici codi de l'alumne
-
+	/*
+	* PRE: Ens passen per paràmetre un array de mida 2p on p es el nombre de punts d'un polígon tancat
+	* POST: Dibuixem p linies entre cada parell de punts que ens passen
+	 */
 	public void defineDrawPolygon(Integer... p) {
-		// TODO: has de ficar aqui el codi!
+		try
+		{
+			if (p.length % 2 == 1) throw new NumberFormatException();
+			int numPoints = p.length / 2;
+
+			int x1 = p[0], y1 = p[1], x2, y2;
+			for (int i = 2; i < numPoints * 2; i += 2)
+			{
+				x2 = p[i];
+				y2 = p[i + 1];
+				defineDrawLine(x1, y1, x2, y2);
+				x1 = x2;
+				y1 = y2;
+			}
+			defineDrawLine(x1, y1, p[0], p[1]);
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println("\nNombre de components imparell. Abortant...");
+		}
 	}
 
 	public void defineFillPolygon(Integer... p) {
