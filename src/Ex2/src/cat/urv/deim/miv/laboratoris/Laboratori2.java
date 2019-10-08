@@ -1,7 +1,6 @@
 package cat.urv.deim.miv.laboratoris;
 
 import cat.urv.deim.miv.Application;
-import sun.awt.image.ImageWatched;
 
 import java.util.*;
 
@@ -34,7 +33,135 @@ public class Laboratori2 extends Application {
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
 	*/
-		// Poligon irregular (Amb diverses interseccions per cada linia d'escombratge)
+		// doble piramide caqui
+		setColor(0.3f, 0.4f, 0.1f);
+		drawPolygon(
+				(int) (0.6f * width), (int) (0.3f * height),
+				(int) (0.7f * width), (int) (0.4f * height),
+				(int) (0.8f * width), (int) (0.3f * height),
+				(int) (0.9f * width), (int) (0.4f * height),
+				(int) (0.5f * width), (int) (0.4f * height)
+
+		);
+		setColor(0.3f, 0.4f, 0.1f);
+		fillPolygon(
+				(int) (0.6f * width), (int) (0.3f * height),
+				(int) (0.7f * width), (int) (0.4f * height),
+				(int) (0.8f * width), (int) (0.3f * height),
+				(int) (0.9f * width), (int) (0.4f * height),
+				(int) (0.5f * width), (int) (0.4f * height)
+		);
+
+		// poligon punxegut
+		setColor(0.2f, 0.3f, 1.0f);
+		drawPolygon(
+				(int) (0.1f * width), (int) (0.3f * height),
+				(int) (0.2f * width), (int) (0.4f * height),
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.2f * width), (int) (0.45f * height),
+				(int) (0.1f * width), (int) (0.5f * height),
+				(int) (0.0f * width), (int) (0.4f * height)
+		);
+		setColor(0.1f, 0.4f, 1.0f);
+		fillPolygon(
+				(int) (0.1f * width), (int) (0.3f * height),
+				(int) (0.2f * width), (int) (0.4f * height),
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.2f * width), (int) (0.45f * height), // Si es canvia la component y per 0.4 per fer una linea diagonal el bug canvia
+				(int) (0.1f * width), (int) (0.5f * height),
+				(int) (0.0f * width), (int) (0.4f * height)
+		);
+
+
+
+		// rombe verd clar
+		setColor(0.6f, 0.f, 1.0f);
+		drawPolygon(
+				(int) (0.4f * width), (int) (0.1f * height),
+				(int) (0.5f * width), (int) (0.2f * height),
+				(int) (0.4f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.2f * height)
+
+				);
+		setColor(0.2f, 0.9f, 0.5f);
+		fillPolygon(
+				(int) (0.4f * width), (int) (0.1f * height),
+				(int) (0.5f * width), (int) (0.2f * height),
+				(int) (0.4f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.2f * height)
+		);
+
+		// rombe gris
+		setColor(0.6f, 0.f, 1.0f);
+		drawPolygon(
+				(int) (0.9f * width), (int) (0.1f * height),
+				(int) (1.0f * width), (int) (0.2f * height),
+				(int) (0.9f * width), (int) (0.3f * height),
+				(int) (0.8f * width), (int) (0.2f * height)
+
+		);
+		setColor(0.3f, 0.3f, 0.3f);
+		fillPolygon(
+				(int) (0.9f * width), (int) (0.1f * height),
+				(int) (1.0f * width), (int) (0.2f * height),
+				(int) (0.9f * width), (int) (0.3f * height),
+				(int) (0.8f * width), (int) (0.2f * height)
+		);
+
+		// quadradet blau cel
+		setColor(0.6f, 1.0f, 1.0f);
+		drawPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.1f * height)
+		);
+		setColor(0.6f, 1.0f, 1.0f);
+		fillPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.1f * height)
+		);
+
+		// quadradet blau marí regular al costat
+		setColor(0.6f, 0.5f, 1.0f);
+		drawPolygon(
+				(int) (0.6f * width), (int) (0.1f * height),
+				(int) (0.6f * width), (int) (0.1f * height),
+				(int) (0.7f * width), (int) (0.2f * height),
+				(int) (0.7f * width), (int) (0.1f * height)
+		);
+		setColor(0.1f, 0.1f, 0.9f);
+		fillPolygon(
+				(int) (0.6f * width), (int) (0.1f * height),
+				(int) (0.6f * width), (int) (0.2f * height),
+				(int) (0.7f * width), (int) (0.2f * height),
+				(int) (0.7f * width), (int) (0.1f * height)
+		);
+
+		// quadradet irregular
+		/*
+		setColor(0.6f, 0.5f, 1.0f);
+		drawPolygon(
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.4f * width), (int) (0.3f * height)
+		);
+		fillPolygon(
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.4f * width), (int) (0.3f * height)
+		);
+		*/
+
+		// Poligon porpra irregular (Amb diverses interseccions per cada linia d'escombratge)
 		setColor(0.0f, 0.0f, 1.0f);
 		drawPolygon(
 				(int) (0.9f * width), (int) (0.9f * height),
@@ -96,15 +223,9 @@ public class Laboratori2 extends Application {
 	}
 
 	public void defineFillPolygon(Integer... p) {
-		List<Vertex> vertex = new LinkedList<Vertex>();
-		List<Aresta> arestas = new LinkedList<Aresta>();
-
-		int ymin = Integer.MAX_VALUE;
-		int ymax = Integer.MIN_VALUE;
-		Vertex vertexTmp = null;
-
-		try{
-			if (p.length < 6 || p.length % 2 == 1)
+		try
+		{
+			if (p.length < 6 || p.length % 2 == 1)  // Esperem punts a R2 que defineixin com a minim un triangle
 			{
 				throw new NumberFormatException();
 			}
@@ -114,14 +235,20 @@ public class Laboratori2 extends Application {
 			System.out.println("Format incorrecte. Abortant...");
 			return;
 		}
+
 		/*
 		 * PRE: ens passen per parametre 3 punts o més
-		 * POST: Obtenim requadre englobant del poligon i llista de vertex i arestes. On els vertex comencen amb la component més baixa.
+		 * POST: Obtenim requadre englobant del poligon a coordinada y i creem llista de vertex i arestes
+		 * on els vertex comencen amb la component més baixa (\/ vertex a vertexos; vertex.v1.Y < vertex.v2.Y)
 		 */
+		List<Vertex> vertexos = new LinkedList<>();
+		List<Aresta> arestes = new LinkedList<>();
+		int ymin = Integer.MAX_VALUE, ymax = Integer.MIN_VALUE;
+		Vertex vertexTmp = null;
 		for (int i = 0; i < p.length; i += 2)
 		{
 			Vertex currentVertex = new Vertex(p[i], p[i + 1]);
-			vertex.add(currentVertex);
+			vertexos.add(currentVertex);
 
 			if (p[i + 1] < ymin )
 			{
@@ -134,27 +261,25 @@ public class Laboratori2 extends Application {
 			if (vertexTmp != null)
 			{
 				Aresta currentAresta = new Aresta(vertexTmp, currentVertex);
-				arestas.add(currentAresta);
+				arestes.add(currentAresta);
 			}
 			vertexTmp = currentVertex;
 		}
-		arestas.add(new Aresta(vertexTmp, vertex.get(0)));
+		arestes.add(new Aresta(vertexTmp, vertexos.get(0)));
 
 		/*
-		* PRE: Previous POST
-		* POST: Get the X component of the intersections with active edges (arestas) and paint
+		* PRE: POST previ
+		* POST: Les coordenades x resultants de la intersecció amb les arestes actives s'ordenen i es pinten de dos en dos.
 		 */
 		for (int y = ymin; y < ymax; y++)
 		{
-			//Fem servir un Set perque es ideal per no repetir interseccions (sol passar al interseccionar a vertexos )
-			List<Integer> interseccionsX = new LinkedList<Integer>() {
-			};
+			List<Integer> interseccionsX = new LinkedList<>();
 
-			for (Aresta tmpAresta : arestas) {
+			for (Aresta tmpAresta : arestes) {
 				int interseccioX = tmpAresta.intersectar(y);
 				if (interseccioX > -1 && !interseccionsX.contains(interseccioX)) interseccionsX.add(interseccioX);
 			}
-			if (interseccionsX.size() != 2) System.out.println("Aqui hi ha dif de 2: " + interseccionsX);  //RF
+			//if (interseccionsX.size() != 2) System.out.println("Aqui hi ha dif de 2: " + interseccionsX);  //RF
 
 			Comparator<Integer> order = Integer::compare;
 			interseccionsX.sort(order.reversed());
