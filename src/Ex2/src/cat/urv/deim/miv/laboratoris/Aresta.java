@@ -18,6 +18,27 @@ public class Aresta {
         }
     }
 
+    public int intersectar(int y) {
+        if (y < this.v1.getY())
+        {
+            return -1;
+        }
+        else if (y > this.v2.getY())
+        {
+            return -1;
+        }
+        else if (this.v1.getY() == this.v2.getY())
+        {
+            return -1;
+        }
+        else {
+            float dx = (float)(this.v2.getX() - this.v1.getX());
+            float dy = (float)(this.v2.getY() - this.v1.getY());
+            return (int)((float)(y - this.v1.getY()) * dx / dy + this.v1.getX());
+            // Y - Y0 = m * (X - X0) -> X = (Y - Y0) / m + X0 = (Y - Y0) * (1 / m) + X0 = (Y - Y0) * dx / dy + X0
+        }
+    }
+
     public Vertex getV1() {
         return v1;
     }

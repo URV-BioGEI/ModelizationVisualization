@@ -1,8 +1,8 @@
 package cat.urv.deim.miv.laboratoris;
 
 import cat.urv.deim.miv.Application;
-import com.sun.java.util.jar.pack.Attribute;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class Laboratori2 extends Application {
 
 		int ymin = Integer.MAX_VALUE;
 		int ymax = Integer.MIN_VALUE;
-		Vertex tmp = null;
+		Vertex vertexTmp = null;
 
 		try{
 			if (p.length < 6 || p.length % 2 == 1)
@@ -103,66 +103,39 @@ public class Laboratori2 extends Application {
 			{
 				ymax = p[i + 1];
 			}
-			if (tmp != null)
+			if (vertexTmp != null)
 			{
-				Aresta currentAresta = new Aresta(tmp, currentVertex);
+				Aresta currentAresta = new Aresta(vertexTmp, currentVertex);
 				arestas.add(currentAresta);
 			}
-			tmp = currentVertex;
+			vertexTmp = currentVertex;
 		}
+		arestas.add(new Aresta(vertexTmp, vertex.get(0)));
 
-		/**
+		/*
+		* PRE: Previous POST
+		* POST: Get the X component of the intersections with active edges (arestas) and paint
+		 */
+		for (int y = ymin; y < ymax; y++)
+		{
+			List<Integer> interseccionsX = new LinkedList<>();
 
-		for(int i = 0; i < p.length; i += 2) {
-			Vertex2 newVertex = new Vertex2(p[i], p[i + 1]);
-			verts.add(newVertex);
-			if (ymin == -1 || ymin > p[i + 1]) {
-				ymin = p[i + 1];
+			for (Aresta tmpAresta : arestas) {
+				int interseccioX = tmpAresta.intersectar(y);
+				if (interseccioX > -1) interseccionsX.add(interseccioX);
 			}
 
-			if (ymax == -1 || ymax < p[i + 1]) {
-				ymax = p[i + 1];
-			}
-
-			if (old != null) {
-				Edge2 newEdge = new Edge2(old, newVertex);
-				newEdge.sortByY();
-				edges.add(newEdge);
-			}
-
-			old = newVertex;
-		}
-
-		Edge2 lastEdge = new Edge2(old, (Vertex2)verts.get(0));
-		lastEdge.sortByY();
-		edges.add(lastEdge);
-
-		for(int y = ymin; y < ymax; ++y) {
-			Set<Integer> points = new TreeSet();
-			Iterator var11 = edges.iterator();
-
-			while(var11.hasNext()) {
-				Edge2 e = (Edge2)var11.next();
-				int i = e.intersectY(y);
-				if (i >= 0) {
-					points.add(i);
+			int Xprevia = -1;
+			for (Integer interseccioActualX : interseccionsX)
+			{
+				if (Xprevia == -1) Xprevia = interseccioActualX;
+				else
+				{
+					this.drawLine(Xprevia, y, interseccioActualX, y);
+					Xprevia = -1;
 				}
 			}
-
-			int pre = -1;
-			Iterator var18 = points.iterator();
-
-			while(var18.hasNext()) {
-				Integer i = (Integer)var18.next();
-				if (pre == -1) {
-					pre = i;
-				} else {
-					this.drawLine(pre, y, i, y);
-					pre = -1;
-				}
-			}
-		}  **/
-
+		}
 	}
 
 	// Fi codi de l'alumne
