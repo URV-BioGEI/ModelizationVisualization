@@ -12,6 +12,9 @@ public class Laboratori1 extends Application {
 		super("Laboratori 1");
 	}
 
+	/**
+	 * @author Aleix Mariné Tena
+	 */
 	public void paint() {
 
 		setColor((float)0.9, (float)0.27, (float)0.27);
