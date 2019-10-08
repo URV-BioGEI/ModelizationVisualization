@@ -1,10 +1,9 @@
 package cat.urv.deim.miv.laboratoris;
 
 import cat.urv.deim.miv.Application;
+import sun.awt.image.ImageWatched;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Laboratori2 extends Application {
 
@@ -18,7 +17,8 @@ public class Laboratori2 extends Application {
 		int width = getPanelWidth();
 		int height = getPanelHeight();
 
-		setColor(1.0f, 0.0f, 0.0f);
+		//Poligon exemple
+		/*setColor(1.0f, 0.0f, 0.0f);
 		fillPolygon(
 				(int) (0.2f * width), (int) (0.6f * height),
 				(int) (0.3f * width), (int) (0.1f * height),
@@ -33,6 +33,34 @@ public class Laboratori2 extends Application {
 				(int) (0.8f * width), (int) (0.4f * height),
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
+	*/
+		// Poligon irregular (Amb diverses interseccions per cada linia d'escombratge)
+		setColor(0.0f, 0.0f, 1.0f);
+		drawPolygon(
+				(int) (0.9f * width), (int) (0.9f * height),
+				(int) (0.1f * width), (int) (0.9f * height),
+				(int) (0.1f * width), (int) (0.6f * height),
+				(int) (0.3f * width), (int) (0.6f * height),
+				(int) (0.3f * width), (int) (0.7f * height),
+				(int) (0.3f * width), (int) (0.7f * height),
+				(int) (0.4f * width), (int) (0.7f * height),
+				(int) (0.4f * width), (int) (0.5f * height),
+				(int) (0.7f * width), (int) (0.5f * height)
+				);
+		setColor(0.9f, 0.0f, 1.0f);
+		fillPolygon(
+				(int) (0.9f * width), (int) (0.9f * height),
+				(int) (0.1f * width), (int) (0.9f * height),
+				(int) (0.1f * width), (int) (0.6f * height),
+				(int) (0.3f * width), (int) (0.6f * height),
+				(int) (0.3f * width), (int) (0.7f * height),
+				(int) (0.3f * width), (int) (0.7f * height),
+				(int) (0.4f * width), (int) (0.7f * height),
+				(int) (0.4f * width), (int) (0.5f * height),
+				(int) (0.7f * width), (int) (0.5f * height)
+		);
+
+
 	}
 
 
@@ -118,13 +146,18 @@ public class Laboratori2 extends Application {
 		 */
 		for (int y = ymin; y < ymax; y++)
 		{
-			List<Integer> interseccionsX = new LinkedList<>();
+			//Fem servir un Set perque es ideal per no repetir interseccions (sol passar al interseccionar a vertexos )
+			List<Integer> interseccionsX = new LinkedList<Integer>() {
+			};
 
 			for (Aresta tmpAresta : arestas) {
 				int interseccioX = tmpAresta.intersectar(y);
-				if (interseccioX > -1) interseccionsX.add(interseccioX);
+				if (interseccioX > -1 && !interseccionsX.contains(interseccioX)) interseccionsX.add(interseccioX);
 			}
+			if (interseccionsX.size() != 2) System.out.println("Aqui hi ha dif de 2: " + interseccionsX);  //RF
 
+			Comparator<Integer> order = Integer::compare;
+			interseccionsX.sort(order.reversed());
 			int Xprevia = -1;
 			for (Integer interseccioActualX : interseccionsX)
 			{
