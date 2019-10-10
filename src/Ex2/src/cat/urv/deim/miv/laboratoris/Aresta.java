@@ -1,6 +1,6 @@
 package cat.urv.deim.miv.laboratoris;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Aresta {
     private Vertex v1;
@@ -49,6 +49,64 @@ public class Aresta {
         }
              */
         }
+    }
+
+    public Vertex vectorAresta ()
+    {
+        return new Vertex(this.v2.getX() - this.v1.getX(), this.v2.getY() - this.v1.getY());
+    }
+
+    public int producteEscalar (Aresta a)
+    {
+        // Obtenim els vectors dels costats
+        Vertex b = this.vectorAresta();
+        Vertex c = a.vectorAresta();
+
+        // Calculem producte escalar
+        return b.getX() * c.getX() + b.getY() * c.getY();
+    }
+
+    public int producteVectorial (Aresta a)
+    {  // Suposem this com el vector u, el primer que es coloca
+        // Calculem vectors aresta
+        Vertex b = this.vectorAresta();
+        Vertex c = a.vectorAresta();
+
+        return b.getX() * c.getY() - b.getY() * c.getX();
+    }
+    /*
+    *
+     */
+    public boolean esConvex(Aresta a)
+    {
+        Vertex comu = this.vertexComu(a);  // Obtenim el vertex en comu amb les dues arestes
+        if (comu != null)
+        {
+            List<Vertex> puntsSegments = new LinkedList<>();
+
+            // Afegim tots els vertex i desprem eliminem el vertex comú
+            puntsSegments.add(this.v1);
+            puntsSegments.add(this.v2);
+            puntsSegments.add(a.v1);
+            puntsSegments.add(a.v2);
+            puntsSegments.remove(comu);  // //RF aixo es una miketa Marranada
+            puntsSegments.remove(comu);
+            /*
+            * PRE: Tenim 2 punts en la nostra llista, corresponent als punts extrems de dues arestes consecutives
+            * POST: Obtenim la disposicio dels punts, indicant si cal emmagatzemar dues interseccions o no
+             */
+            return !((comu.getY() > puntsSegments.get(0).getY() && comu.getY() > puntsSegments.get(1).getY()) || (comu.getY() < puntsSegments.get(0).getY() && comu.getY() < puntsSegments.get(1).getY()));
+        }
+        return false;
+    }
+
+    public Vertex vertexComu (Aresta a)
+    {
+        if (a.v1.equals(this.v2)) return this.v2;
+        else if (a.v2.equals(this.v1)) return this.v1;
+        else if (a.v1.equals(this.v1)) return this.v1;
+        else if (a.v2.equals(this.v2)) return this.v2;
+        return null;
     }
 
     public Vertex getV1() {

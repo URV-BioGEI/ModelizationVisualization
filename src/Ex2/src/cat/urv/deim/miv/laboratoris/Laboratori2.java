@@ -17,7 +17,8 @@ public class Laboratori2 extends Application {
 		int height = getPanelHeight();
 
 		//Poligon exemple
-		/*setColor(1.0f, 0.0f, 0.0f);
+		/*
+		setColor(1.0f, 0.0f, 0.0f);
 		fillPolygon(
 				(int) (0.2f * width), (int) (0.6f * height),
 				(int) (0.3f * width), (int) (0.1f * height),
@@ -32,7 +33,22 @@ public class Laboratori2 extends Application {
 				(int) (0.8f * width), (int) (0.4f * height),
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
-	*/
+
+		// quadradet irregular lila
+		setColor(0.6f, 0.5f, 1.0f);
+		drawPolygon(
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.4f * width), (int) (0.3f * height)
+		);
+		fillPolygon(
+				(int) (0.3f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.5f * height),
+				(int) (0.4f * width), (int) (0.4f * height),
+				(int) (0.4f * width), (int) (0.3f * height)
+		);
+		*/
 		// doble piramide caqui
 		setColor(0.3f, 0.4f, 0.1f);
 		drawPolygon(
@@ -52,7 +68,7 @@ public class Laboratori2 extends Application {
 				(int) (0.5f * width), (int) (0.4f * height)
 		);
 
-		// poligon punxegut
+		// Poligon de doble rombe punxegut
 		setColor(0.2f, 0.3f, 1.0f);
 		drawPolygon(
 				(int) (0.1f * width), (int) (0.3f * height),
@@ -75,8 +91,6 @@ public class Laboratori2 extends Application {
 				(int) (0.1f * width), (int) (0.5f * height),
 				(int) (0.0f * width), (int) (0.4f * height)
 		);
-
-
 
 		// rombe verd clar
 		setColor(0.6f, 0.f, 1.0f);
@@ -143,23 +157,6 @@ public class Laboratori2 extends Application {
 				(int) (0.7f * width), (int) (0.2f * height),
 				(int) (0.7f * width), (int) (0.1f * height)
 		);
-
-		// quadradet irregular
-		/*
-		setColor(0.6f, 0.5f, 1.0f);
-		drawPolygon(
-				(int) (0.3f * width), (int) (0.3f * height),
-				(int) (0.3f * width), (int) (0.5f * height),
-				(int) (0.4f * width), (int) (0.4f * height),
-				(int) (0.4f * width), (int) (0.3f * height)
-		);
-		fillPolygon(
-				(int) (0.3f * width), (int) (0.3f * height),
-				(int) (0.3f * width), (int) (0.5f * height),
-				(int) (0.4f * width), (int) (0.4f * height),
-				(int) (0.4f * width), (int) (0.3f * height)
-		);
-		*/
 
 		// Poligon porpra irregular (Amb diverses interseccions per cada linia d'escombratge)
 		setColor(0.0f, 0.0f, 1.0f);
@@ -270,16 +267,42 @@ public class Laboratori2 extends Application {
 		/*
 		* PRE: POST previ
 		* POST: Les coordenades x resultants de la intersecció amb les arestes actives s'ordenen i es pinten de dos en dos.
+		* POST2 (polígons en concaus i/o punxa): Si els tres valors de la coordinada y per als tres punts extrems que hi ha en dues arestes consecutives
+		* creix en la mateixa direcció, llavors el comptem com un sol punt. Sino, com dos.
 		 */
 		for (int y = ymin; y < ymax; y++)
 		{
 			List<Integer> interseccionsX = new LinkedList<>();
+			List<Aresta> arestesActives = new LinkedList<>();
 
 			for (Aresta tmpAresta : arestes) {
 				int interseccioX = tmpAresta.intersectar(y);
-				if (interseccioX > -1 && !interseccionsX.contains(interseccioX)) interseccionsX.add(interseccioX);
+				if (interseccioX > -1)
+				{
+					/*
+					* Si ja hem trobat una interseccio en x amb el mateix valor pot ser que s'hagi de:
+					* - Comptar com un sol punt si es tracta d'una doble intersecció causada per un vertex convex
+					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 < y2 < y3 o bé y1 > y2 > y3 en aquesta situació
+					* - Comptar com dos punts, quan es una doble intersecció d'un vertex punxa en polígon concau
+					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 > y2 < y3 o bé y1 < y2 > y3 en aquesta situació
+					 */
+					if (interseccionsX.contains(interseccioX))  // Si intersecció repetida, estudiem cas
+					{
+						Aresta arestaConflictiva = arestesActives.get(interseccionsX.indexOf(interseccioX));  // Obtenim l'aresta anterior que causa el conflicte
+						if (!arestaConflictiva.esConvex(tmpAresta))  // Si no es convex guardem el punt actual a més del conflictiu que ja esta a la llista
+						{
+							interseccionsX.add(interseccioX);
+							arestesActives.add(tmpAresta);
+						}
+						// L'aresta conflictiva esta formada necessariament per una component v1 i una v2 de l'altra aresta degut al ordre que apliquem
+					}
+					else
+					{
+						interseccionsX.add(interseccioX);
+						arestesActives.add(tmpAresta);
+					}
+				}
 			}
-			//if (interseccionsX.size() != 2) System.out.println("Aqui hi ha dif de 2: " + interseccionsX);  //RF
 
 			Comparator<Integer> order = Integer::compare;
 			interseccionsX.sort(order.reversed());
