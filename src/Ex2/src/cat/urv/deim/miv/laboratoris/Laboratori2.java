@@ -15,9 +15,8 @@ public class Laboratori2 extends Application {
 	public void paint() {
 		int width = getPanelWidth();
 		int height = getPanelHeight();
-
-		//Poligon exemple
 		/*
+		//Poligon exemple
 		setColor(1.0f, 0.0f, 0.0f);
 		fillPolygon(
 				(int) (0.2f * width), (int) (0.6f * height),
@@ -33,7 +32,6 @@ public class Laboratori2 extends Application {
 				(int) (0.8f * width), (int) (0.4f * height),
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
-
 		// quadradet irregular lila
 		setColor(0.6f, 0.5f, 1.0f);
 		drawPolygon(
@@ -48,7 +46,6 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.4f * height),
 				(int) (0.4f * width), (int) (0.3f * height)
 		);
-		*/
 		// doble piramide caqui
 		setColor(0.3f, 0.4f, 0.1f);
 		drawPolygon(
@@ -68,7 +65,7 @@ public class Laboratori2 extends Application {
 				(int) (0.5f * width), (int) (0.4f * height)
 		);
 
-		// Poligon de doble rombe punxegut
+		// Poligon blau de doble rombe punxegut
 		setColor(0.2f, 0.3f, 1.0f);
 		drawPolygon(
 				(int) (0.1f * width), (int) (0.3f * height),
@@ -91,7 +88,6 @@ public class Laboratori2 extends Application {
 				(int) (0.1f * width), (int) (0.5f * height),
 				(int) (0.0f * width), (int) (0.4f * height)
 		);
-
 		// rombe verd clar
 		setColor(0.6f, 0.f, 1.0f);
 		drawPolygon(
@@ -183,26 +179,39 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.5f * height),
 				(int) (0.7f * width), (int) (0.5f * height)
 		);
+		*/
+
+		// triangle rosa
+		setColor(0.9f, 0.0f, 0.7f);
+		drawPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height)
+		);
+		setColor(0.9f, 0.0f, 0.7f);
+		fillPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height)
+		);
 
 
 	}
-
 
 	// Practica 2, implementa defineDrawPolygon i defineFillPolygon
 	// Hint: Pots utilitzar l'algorisme Scan line fill polygon
 	
 	// Inici codi de l'alumne
 	/*
-	* PRE: Ens passen per paràmetre un array de mida 2p on p es el nombre de punts d'un polígon tancat
+	* PRE: Ens passen per paràmetre un array de mida 2p on p es el nombre de components dels punts d'un polígon tancat
 	* POST: Dibuixem p linies entre cada parell de punts que ens passen
 	 */
 	public void defineDrawPolygon(Integer... p) {
-		try
+		try  // Ens passen com a mínim un triangle a R2
 		{
-			if (p.length % 2 == 1) throw new NumberFormatException();
-			int numPoints = p.length / 2;
+			if (p.length % 2 == 1  || p.length < 6) throw new NumberFormatException();
+			int numPoints = p.length / 2, x1 = p[0], y1 = p[1], x2, y2;
 
-			int x1 = p[0], y1 = p[1], x2, y2;
 			for (int i = 2; i < numPoints * 2; i += 2)
 			{
 				x2 = p[i];
@@ -215,17 +224,14 @@ public class Laboratori2 extends Application {
 		}
 		catch (NumberFormatException e)
 		{
-			System.out.println("\nNombre de components imparell. Abortant...");
+			System.out.println("Format incorrecte. Abortant...");
 		}
 	}
 
 	public void defineFillPolygon(Integer... p) {
-		try
+		try  // Ens passen com a mínim un triangle a R2
 		{
-			if (p.length < 6 || p.length % 2 == 1)  // Esperem punts a R2 que defineixin com a minim un triangle
-			{
-				throw new NumberFormatException();
-			}
+			if (p.length < 6 || p.length % 2 == 1)  throw new NumberFormatException();
 		}
 		catch (NumberFormatException e)
 		{
@@ -242,6 +248,7 @@ public class Laboratori2 extends Application {
 		List<Aresta> arestes = new LinkedList<>();
 		int ymin = Integer.MAX_VALUE, ymax = Integer.MIN_VALUE;
 		Vertex vertexTmp = null;
+
 		for (int i = 0; i < p.length; i += 2)
 		{
 			Vertex currentVertex = new Vertex(p[i], p[i + 1]);
@@ -268,14 +275,15 @@ public class Laboratori2 extends Application {
 		* PRE: POST previ
 		* POST: Les coordenades x resultants de la intersecció amb les arestes actives s'ordenen i es pinten de dos en dos.
 		* POST2 (polígons en concaus i/o punxa): Si els tres valors de la coordinada y per als tres punts extrems que hi ha en dues arestes consecutives
-		* creix en la mateixa direcció, llavors el comptem com un sol punt. Sino, com dos.
+		* creix en la mateixa direcció, llavors el comptem com un sol punt. Sino, com dos. (depèn de Aresta.esConvex())
 		 */
 		for (int y = ymin; y < ymax; y++)
 		{
 			List<Integer> interseccionsX = new LinkedList<>();
-			List<Aresta> arestesActives = new LinkedList<>();
+			List<Aresta> arestesActives = new LinkedList<>();  // Per a recuperar una aresta si hi ha conflicte
 
-			for (Aresta tmpAresta : arestes) {
+			for (Aresta tmpAresta : arestes)
+			{
 				int interseccioX = tmpAresta.intersectar(y);
 				if (interseccioX > -1)
 				{
@@ -283,7 +291,7 @@ public class Laboratori2 extends Application {
 					* Si ja hem trobat una interseccio en x amb el mateix valor pot ser que s'hagi de:
 					* - Comptar com un sol punt si es tracta d'una doble intersecció causada per un vertex convex
 					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 < y2 < y3 o bé y1 > y2 > y3 en aquesta situació
-					* - Comptar com dos punts, quan es una doble intersecció d'un vertex punxa en polígon concau
+					* - Comptar com dos punts, quan es una doble intersecció d'un vertex punxa en un vertex concau
 					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 > y2 < y3 o bé y1 < y2 > y3 en aquesta situació
 					 */
 					if (interseccionsX.contains(interseccioX))  // Si intersecció repetida, estudiem cas
