@@ -64,7 +64,7 @@ public class Laboratori2 extends Application {
 				(int) (0.9f * width), (int) (0.4f * height),
 				(int) (0.5f * width), (int) (0.4f * height)
 		);
-
+		*/
 		// Poligon blau de doble rombe punxegut
 		setColor(0.2f, 0.3f, 1.0f);
 		drawPolygon(
@@ -89,6 +89,7 @@ public class Laboratori2 extends Application {
 				(int) (0.0f * width), (int) (0.4f * height)
 		);
 		// rombe verd clar
+		/*
 		setColor(0.6f, 0.f, 1.0f);
 		drawPolygon(
 				(int) (0.4f * width), (int) (0.1f * height),
@@ -254,7 +255,7 @@ public class Laboratori2 extends Application {
 			Vertex currentVertex = new Vertex(p[i], p[i + 1]);
 			vertexos.add(currentVertex);
 
-			if (p[i + 1] < ymin )
+			if (p[i + 1] < ymin)
 			{
 				ymin = p[i + 1];
 			}
@@ -289,9 +290,9 @@ public class Laboratori2 extends Application {
 				{
 					/*
 					* Si ja hem trobat una interseccio en x amb el mateix valor pot ser que s'hagi de:
-					* - Comptar com un sol punt si es tracta d'una doble intersecció causada per un vertex convex
+					* - Comptar com un sol punt si es tracta d'una doble intersecció causada per un vertex convex extern
 					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 < y2 < y3 o bé y1 > y2 > y3 en aquesta situació
-					* - Comptar com dos punts, quan es una doble intersecció d'un vertex punxa en un vertex concau
+					* - Comptar com dos punts, quan es una doble intersecció d'un vertex punxa en un vertex concau o intern
 					* --> y1, y2, y3, component y dels punts vertex consecutius compleixen que y1 > y2 < y3 o bé y1 < y2 > y3 en aquesta situació
 					 */
 					if (interseccionsX.contains(interseccioX))  // Si intersecció repetida, estudiem cas
