@@ -3,6 +3,7 @@ package cat.urv.deim.miv.laboratoris;
 import cat.urv.deim.miv.Application;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Laboratori2 extends Application {
 
@@ -15,7 +16,7 @@ public class Laboratori2 extends Application {
 	public void paint() {
 		int width = getPanelWidth();
 		int height = getPanelHeight();
-		/*
+
 		//Poligon exemple
 		setColor(1.0f, 0.0f, 0.0f);
 		fillPolygon(
@@ -32,6 +33,7 @@ public class Laboratori2 extends Application {
 				(int) (0.8f * width), (int) (0.4f * height),
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
+		/*
 		// quadradet irregular lila
 		setColor(0.6f, 0.5f, 1.0f);
 		drawPolygon(
@@ -46,6 +48,7 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.4f * height),
 				(int) (0.4f * width), (int) (0.3f * height)
 		);
+		 */
 		// doble piramide caqui
 		setColor(0.3f, 0.4f, 0.1f);
 		drawPolygon(
@@ -64,7 +67,7 @@ public class Laboratori2 extends Application {
 				(int) (0.9f * width), (int) (0.4f * height),
 				(int) (0.5f * width), (int) (0.4f * height)
 		);
-		*/
+
 		// Poligon blau de doble rombe punxegut
 		setColor(0.2f, 0.3f, 1.0f);
 		drawPolygon(
@@ -88,8 +91,9 @@ public class Laboratori2 extends Application {
 				(int) (0.1f * width), (int) (0.5f * height),
 				(int) (0.0f * width), (int) (0.4f * height)
 		);
-		// rombe verd clar
 		/*
+		// rombe verd clar
+
 		setColor(0.6f, 0.f, 1.0f);
 		drawPolygon(
 				(int) (0.4f * width), (int) (0.1f * height),
@@ -107,6 +111,7 @@ public class Laboratori2 extends Application {
 		);
 
 		// rombe gris
+
 		setColor(0.6f, 0.f, 1.0f);
 		drawPolygon(
 				(int) (0.9f * width), (int) (0.1f * height),
@@ -154,7 +159,7 @@ public class Laboratori2 extends Application {
 				(int) (0.7f * width), (int) (0.2f * height),
 				(int) (0.7f * width), (int) (0.1f * height)
 		);
-
+		*/
 		// Poligon porpra irregular (Amb diverses interseccions per cada linia d'escombratge)
 		setColor(0.0f, 0.0f, 1.0f);
 		drawPolygon(
@@ -180,8 +185,8 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.5f * height),
 				(int) (0.7f * width), (int) (0.5f * height)
 		);
-		*/
 
+		/*
 		// triangle rosa
 		setColor(0.9f, 0.0f, 0.7f);
 		drawPolygon(
@@ -197,6 +202,66 @@ public class Laboratori2 extends Application {
 		);
 
 
+		// quadrat amb dos quadradets en forat
+		setColor(0.6f, 1.0f, 1.0f);
+		drawPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.1f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.14f * width), (int) (0.14f * height),
+				(int) (0.14f * width), (int) (0.16f * height),
+				(int) (0.16f * width), (int) (0.16f * height),
+				(int) (0.16f * width), (int) (0.14f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.17f * width), (int) (0.17f * height),
+				(int) (0.17f * width), (int) (0.19f * height),
+				(int) (0.19f * width), (int) (0.19f * height),
+				(int) (0.19f * width), (int) (0.17f * height),
+				(int) (-1), (int) (-1)
+		);
+		setColor(0.6f, 1.0f, 1.0f);
+		fillPolygon(
+				(int) (0.1f * width), (int) (0.1f * height),
+				(int) (0.1f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.2f * height),
+				(int) (0.2f * width), (int) (0.1f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.14f * width), (int) (0.14f * height),
+				(int) (0.14f * width), (int) (0.16f * height),
+				(int) (0.16f * width), (int) (0.16f * height),
+				(int) (0.16f * width), (int) (0.14f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.17f * width), (int) (0.17f * height),
+				(int) (0.17f * width), (int) (0.19f * height),
+				(int) (0.19f * width), (int) (0.19f * height),
+				(int) (0.19f * width), (int) (0.17f * height),
+				(int) (-1), (int) (-1)
+		);
+		/*
+		// Poligon de 7 costats
+		setColor(0.11f,0.79f,0.09f);
+		fillPolygon(
+				(int) (0.2f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.2f * height),
+				(int) (0.6f * width), (int) (0.3f * height),
+				(int) (0.7f * width), (int) (0.5f * height),
+				(int) (0.7f * width), (int) (0.7f * height),
+				(int) (0.5f * width), (int) (0.9f * height),
+				(int) (0.3f * width), (int) (0.7f * height));
+
+		setColor(0.68f,0.15f,0.15f);
+		drawPolygon(
+				(int) (0.2f * width), (int) (0.3f * height),
+				(int) (0.3f * width), (int) (0.2f * height),
+				(int) (0.6f * width), (int) (0.3f * height),
+				(int) (0.7f * width), (int) (0.5f * height),
+				(int) (0.7f * width), (int) (0.7f * height),
+				(int) (0.5f * width), (int) (0.9f * height),
+				(int) (0.3f * width), (int) (0.7f * height));
+
+		 */
 	}
 
 	// Practica 2, implementa defineDrawPolygon i defineFillPolygon
@@ -204,24 +269,34 @@ public class Laboratori2 extends Application {
 	
 	// Inici codi de l'alumne
 	/*
-	* PRE: Ens passen per paràmetre un array de mida 2p on p es el nombre de components dels punts d'un polígon tancat
-	* POST: Dibuixem p linies entre cada parell de punts que ens passen
+	 * PRE: Ens passen per paràmetre un array de mida 2p on p es el nombre de components dels punts d'un polígon tancat
+	 * POST: Dibuixem p linies entre cada parell de punts que ens passen
 	 */
 	public void defineDrawPolygon(Integer... p) {
 		try  // Ens passen com a mínim un triangle a R2
 		{
-			if (p.length % 2 == 1  || p.length < 6) throw new NumberFormatException();
-			int numPoints = p.length / 2, x1 = p[0], y1 = p[1], x2, y2;
-
-			for (int i = 2; i < numPoints * 2; i += 2)
+			if (p.length % 2 == 1 || p.length < 6) throw new NumberFormatException();
+			int i = 0;
+			while (i < p.length)
 			{
-				x2 = p[i];
-				y2 = p[i + 1];
-				defineDrawLine(x1, y1, x2, y2);
-				x1 = x2;
-				y1 = y2;
+				Vertex primerVertex = new Vertex(p[i], p[i + 1]);
+				Vertex anteriorVertex = primerVertex;
+				Vertex currentVertex;
+				i += 2;
+				for (; i < p.length; i += 2)
+				{
+					if (p[i] == -1 && p[i + 1] == -1)
+					{
+						i += 2;  // Skip two positions corresponding to scape signal
+						break; // Escape with (-1, -1) signal
+					}
+					currentVertex = new Vertex(p[i], p[i + 1]);
+					drawLine(anteriorVertex.getX(), anteriorVertex.getY(), currentVertex.getX(), currentVertex.getY());
+					anteriorVertex = currentVertex;
+				}
+				drawLine(primerVertex.getX(), primerVertex.getY(), anteriorVertex.getX(), anteriorVertex.getY());
 			}
-			defineDrawLine(x1, y1, p[0], p[1]);
+
 		}
 		catch (NumberFormatException e)
 		{
@@ -229,6 +304,13 @@ public class Laboratori2 extends Application {
 		}
 	}
 
+	/*
+	* PRE (forats): Es rep una llista d’enters que representen la posició dels vèrtex d’un conjunt de polígons. El
+	* primer polígon és el polígon extern i la resta de polígons són polígons interns que representen forats continguts
+	* en el polígon extern. S’indica el fi d’un polígon amb el sentinella (-1, -1). L’únic polígon que té el sentinella
+	*  com opcional és l’últim polígon indicat.”
+	* POST: Es pinta el polígon tenint en compte els forats.
+	 */
 	public void defineFillPolygon(Integer... p) {
 		try  // Ens passen com a mínim un triangle a R2
 		{
@@ -245,16 +327,16 @@ public class Laboratori2 extends Application {
 		 * POST: Obtenim requadre englobant del poligon a coordinada y i creem llista de vertex i arestes
 		 * on els vertex comencen amb la component més baixa (\/ vertex a vertexos; vertex.v1.Y < vertex.v2.Y)
 		 */
-		List<Vertex> vertexos = new LinkedList<>();
-		List<Aresta> arestes = new LinkedList<>();
+		List<List<Aresta>> arestes = new LinkedList<>();
+
 		int ymin = Integer.MAX_VALUE, ymax = Integer.MIN_VALUE;
-		Vertex vertexTmp = null;
 
-		for (int i = 0; i < p.length; i += 2)
+		int i = 0;
+		while (i < p.length)
 		{
-			Vertex currentVertex = new Vertex(p[i], p[i + 1]);
-			vertexos.add(currentVertex);
-
+			List<Aresta> arestesTmp = new LinkedList<>();
+			Vertex primerVertex = new Vertex(p[i], p[i + 1]);
+			Vertex vertexTmp = primerVertex;
 			if (p[i + 1] < ymin)
 			{
 				ymin = p[i + 1];
@@ -263,14 +345,34 @@ public class Laboratori2 extends Application {
 			{
 				ymax = p[i + 1];
 			}
-			if (vertexTmp != null)
+			i += 2;
+
+			for (; i < p.length; i += 2)
 			{
+				if (p[i] == -1 && p[i + 1] == -1)
+				{
+					i += 2;  // Move index two more positions
+					break; // Escape with (-1, -1) signal
+				}
+
+				Vertex currentVertex = new Vertex(p[i], p[i + 1]);
+				//vertexosTmp.add(currentVertex);
+
+				if (p[i + 1] < ymin)
+				{
+					ymin = p[i + 1];
+				}
+				if (p[i + 1] > ymax)
+				{
+					ymax = p[i + 1];
+				}
 				Aresta currentAresta = new Aresta(vertexTmp, currentVertex);
-				arestes.add(currentAresta);
+				arestesTmp.add(currentAresta);
+				vertexTmp = currentVertex;
 			}
-			vertexTmp = currentVertex;
+			arestesTmp.add(new Aresta(vertexTmp, primerVertex));
+			arestes.add(arestesTmp);
 		}
-		arestes.add(new Aresta(vertexTmp, vertexos.get(0)));
 
 		/*
 		* PRE: POST previ
@@ -278,14 +380,16 @@ public class Laboratori2 extends Application {
 		* POST2 (polígons en concaus i/o punxa): Si els tres valors de la coordinada y per als tres punts extrems que hi ha en dues arestes consecutives
 		* creix en la mateixa direcció, llavors el comptem com un sol punt. Sino, com dos. (depèn de Aresta.esConvex())
 		 */
+		List<Aresta> arestesFlat = arestes.stream().flatMap(List::stream).collect(Collectors.toList());
 		for (int y = ymin; y < ymax; y++)
 		{
 			List<Integer> interseccionsX = new LinkedList<>();
 			List<Aresta> arestesActives = new LinkedList<>();  // Per a recuperar una aresta si hi ha conflicte
 
-			for (Aresta tmpAresta : arestes)
+			for (Aresta tmpAresta : arestesFlat)
 			{
 				int interseccioX = tmpAresta.intersectar(y);
+
 				if (interseccioX > -1)
 				{
 					/*
@@ -312,7 +416,6 @@ public class Laboratori2 extends Application {
 					}
 				}
 			}
-
 			Comparator<Integer> order = Integer::compare;
 			interseccionsX.sort(order.reversed());
 			int Xprevia = -1;
@@ -329,7 +432,6 @@ public class Laboratori2 extends Application {
 	}
 
 	// Fi codi de l'alumne
-	
 	public static void main(String[] args) {
 		Laboratori2 example = new Laboratori2();
 		example.run();

@@ -32,32 +32,6 @@ public class Aresta {
         }
     }
 
-    public Vertex vectorAresta ()
-    {
-        return new Vertex(this.v2.getX() - this.v1.getX(), this.v2.getY() - this.v1.getY());
-    }
-
-    public int producteEscalar (Aresta a)
-    {
-        // Obtenim els vectors dels costats
-        Vertex b = this.vectorAresta();
-        Vertex c = a.vectorAresta();
-
-        // Calculem producte escalar
-        return b.getX() * c.getX() + b.getY() * c.getY();
-    }
-
-    public int producteVectorial (Aresta a)
-    {  // Suposem this com el vector u, el primer que es coloca
-        // Calculem vectors aresta
-        Vertex b = this.vectorAresta();
-        Vertex c = a.vectorAresta();
-
-        return b.getX() * c.getY() - b.getY() * c.getX();
-    }
-    /*
-    *
-     */
     public boolean esConvex(Aresta a)
     {
         List<Vertex> puntsSegments = new LinkedList<>();
@@ -82,23 +56,6 @@ public class Aresta {
         * POST: Obtenim la disposicio dels punts, indicant si cal emmagatzemar dues interseccions o no
          */
         return !((comu.getY() > puntsSegments.get(0).getY() && comu.getY() > puntsSegments.get(1).getY()) || (comu.getY() < puntsSegments.get(0).getY() && comu.getY() < puntsSegments.get(1).getY()));
-    }
-
-
-    public Vertex getV1() {
-        return v1;
-    }
-
-    public void setV1(Vertex v1) {
-        this.v1 = v1;
-    }
-
-    public Vertex getV2() {
-        return v2;
-    }
-
-    public void setV2(Vertex v2) {
-        this.v2 = v2;
     }
 
     @Override
