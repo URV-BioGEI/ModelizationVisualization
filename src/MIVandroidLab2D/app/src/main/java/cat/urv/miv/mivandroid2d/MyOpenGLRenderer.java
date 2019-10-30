@@ -11,11 +11,11 @@ public class MyOpenGLRenderer implements Renderer {
 
 	private Square square;
 	private Texture texture1;
-	private TextureAtlas textureAtlas1;
 	private int angle = 0;
 	private int actualSprite=1;
 
 	private Context context;
+	private CharacterManager mushroom;
 
 	public MyOpenGLRenderer(Context context){
 		this.context = context;
@@ -43,8 +43,9 @@ public class MyOpenGLRenderer implements Renderer {
 												1.0f,0.0f,
 												1.0f,1.0f});*/
 		try {
-			textureAtlas1 = new TextureAtlas(gl, context, R.raw.mushroom, R.raw.mushroom_text);
-			square = textureAtlas1.getSquare("walk1");
+
+			mushroom = new CharacterManager(gl, context, R.drawable.mushroom, R.raw.mushroom);
+			mushroom.setAnimation("walk");
 		}
 		catch (Exception e){
 			System.out.println(e);
@@ -64,11 +65,13 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glTranslatef(0.0f, 0.0f, -10.0f);
 
 		gl.glPushMatrix();
-		square.draw(gl);
-		actualSprite++;
-		if(actualSprite>9)actualSprite=1;
-		square=textureAtlas1.getSquare("walk"+actualSprite);
+
+		mushroom.update();
+		mushroom.draw(gl);
+
 		gl.glPopMatrix();
+
+
 
 		/*
 		// Green Square
