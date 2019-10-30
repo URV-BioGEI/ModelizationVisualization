@@ -159,7 +159,7 @@ public class Laboratori2 extends Application {
 				(int) (0.7f * width), (int) (0.2f * height),
 				(int) (0.7f * width), (int) (0.1f * height)
 		);
-		*/
+
 		// Poligon porpra irregular (Amb diverses interseccions per cada linia d'escombratge)
 		setColor(0.0f, 0.0f, 1.0f);
 		drawPolygon(
@@ -185,7 +185,7 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.5f * height),
 				(int) (0.7f * width), (int) (0.5f * height)
 		);
-
+		*/
 		/*
 		// triangle rosa
 		setColor(0.9f, 0.0f, 0.7f);
@@ -201,7 +201,7 @@ public class Laboratori2 extends Application {
 				(int) (0.2f * width), (int) (0.2f * height)
 		);
 
-
+		*/
 		// quadrat amb dos quadradets en forat
 		setColor(0.6f, 1.0f, 1.0f);
 		drawPolygon(
@@ -356,7 +356,6 @@ public class Laboratori2 extends Application {
 				}
 
 				Vertex currentVertex = new Vertex(p[i], p[i + 1]);
-				//vertexosTmp.add(currentVertex);
 
 				if (p[i + 1] < ymin)
 				{

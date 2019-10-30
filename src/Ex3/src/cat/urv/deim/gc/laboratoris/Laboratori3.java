@@ -73,10 +73,12 @@ public class Laboratori3 extends Application {
 	// Inici codi de l'alumne
 	
 	public void defineGlMatrixMode(int model) {
+		GL.setModel(model);
 		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlViewport(int x, int y, int width, int height) {
+		GL.setViewport(x, y, width, height);
 		// TODO: has de ficar aqui el codi!
 	}
 	
@@ -85,14 +87,17 @@ public class Laboratori3 extends Application {
 	}
 	
 	public void defineGlLoadIdentity() {
+		GL.loadIdentity();
 		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlPushMatrix() {
+		GL.pushMatrix();
 		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlPopMatrix() {
+		GL.popMatrix();
 		// TODO: has de ficar aqui el codi!
 	}
 	
