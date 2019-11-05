@@ -74,60 +74,56 @@ public class Laboratori3 extends Application {
 	
 	public void defineGlMatrixMode(int model) {
 		GL.setModel(model);
-		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlViewport(int x, int y, int width, int height) {
 		GL.setViewport(x, y, width, height);
-		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGluPerspective(float fovy, float aspect, float zNear, float zFar) {
-		// TODO: has de ficar aqui el codi!
+		GL.gluPerspective(fovy, aspect, zNear, zFar);
 	}
 	
 	public void defineGlLoadIdentity() {
 		GL.loadIdentity();
-		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlPushMatrix() {
 		GL.pushMatrix();
-		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlPopMatrix() {
 		GL.popMatrix();
-		// TODO: has de ficar aqui el codi!
 	}
 	
 	public void defineGlTranslatef(float x, float y, float z) {
-		// TODO: has de ficar aqui el codi!
+		GL.translate(x, y, z);
 	}
 	
 	public void defineGlScalef(float x, float y, float z) {
-		// TODO: has de ficar aqui el codi!
+		GL.scale(x, y, z);
 	}
 	
 	public void defineGlRotatef(float angle, float x, float y, float z) {
-		// TODO: has de ficar aqui el codi!
+		GL.rotatef(angle, x, y, z);
 	}
 	
 	public void defineGlBeginPolygon() {
-		// TODO: has de ficar aqui el codi!
+		GL.beginPolygon();
 	}
 	
 	public void defineGlVertex3f(float x, float y, float z) {
-		// TODO: has de ficar aqui el codi!
+		GL.vector3f(x, y, z);
 	}
 	
 	public void defineGlEndPolygon() {
-		// TODO: has de ficar aqui el codi!
+		fillPolygon(GL.endPolygon());
 	}
 	
 	// Fi codi de l'alumne
 	
 	public static void main(String[] args) {
+		GL.init();
 		Laboratori3 example = new Laboratori3();
 		example.run();
 	}

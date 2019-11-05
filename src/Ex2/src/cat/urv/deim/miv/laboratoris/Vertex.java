@@ -1,7 +1,5 @@
 package cat.urv.deim.miv.laboratoris;
 
-import java.util.Objects;
-
 public class Vertex {
     private int x;
     private int y;

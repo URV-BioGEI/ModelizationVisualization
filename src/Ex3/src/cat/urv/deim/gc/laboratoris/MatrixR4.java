@@ -1,7 +1,5 @@
 package cat.urv.deim.gc.laboratoris;
 
-import cat.urv.deim.miv.Vertex4;
-
 /**
  * HC for 4x4 Matrix. Com més HC, menys parametritzacions i per tant menys instruccions i codi més ràpid
  */
@@ -66,8 +64,8 @@ public class MatrixR4 {
         return result;
     }
 
-    public Vertex4 mult(Vertex4 o) {
-        Vertex4 result = new Vertex4();
+    public VectorR4 mult(VectorR4 o) {
+        VectorR4 result = new VectorR4();
         for(int r = 0; r < 4; ++r)
         {
             float value = 0.0F;
