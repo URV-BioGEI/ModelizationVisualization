@@ -7,8 +7,6 @@ public class VectorR4 {
 
     public VectorR4(float x, float y, float z, float w) { this.values = new float[]{x, y, z, w}; }
 
-    public static VectorR4 zero () { return new VectorR4(0.0F, 0.0F, 0.0F, 0.0F); }
-
     public float get(int index) { return this.values[index]; }
 
     public void set(int index, float value) { this.values[index] = value; }

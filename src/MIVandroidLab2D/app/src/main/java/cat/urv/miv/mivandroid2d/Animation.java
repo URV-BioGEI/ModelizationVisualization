@@ -9,13 +9,14 @@ import static java.lang.System.currentTimeMillis;
 
 public class Animation {
 
-    //variables: speed, num_frames, current_frame, List<Square>
-    List<Square> squareList;
-    float speed = 3.0F;
-    int currentFrame;
-    long currentTime;
+    private List<Square> squareList;
+    private int speed = 30;
+    private int currentFrame;
+    private long currentTime;
+    private GL10 gl;
 
-    public Animation() {
+    public Animation(GL10 gl) {
+        this.gl=gl;
         squareList = new LinkedList<>();
         currentFrame = 0;
         currentTime = currentTimeMillis();
@@ -25,17 +26,16 @@ public class Animation {
         squareList.add(square);
     }
 
-    public  void draw(GL10 gl){
+    public  void draw(){
         squareList.get(currentFrame).draw(gl);
     }
 
-    public void update(){
-        if (currentTimeMillis()-currentTime>=(long)(speed*10)){
-            currentTime=currentTimeMillis();
+    public void update(long time){
+        if (time-currentTime>=(long)speed){
+            currentTime=time;
             currentFrame++;
             if(currentFrame>=squareList.size()) currentFrame=0;
         }
     }
-
 
 }

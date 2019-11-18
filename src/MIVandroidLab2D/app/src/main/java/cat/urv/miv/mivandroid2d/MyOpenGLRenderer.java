@@ -7,6 +7,8 @@ import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
 
+import static java.lang.System.currentTimeMillis;
+
 public class MyOpenGLRenderer implements Renderer {
 
 	private Square square;
@@ -66,8 +68,8 @@ public class MyOpenGLRenderer implements Renderer {
 
 		gl.glPushMatrix();
 
-		mushroom.update();
-		mushroom.draw(gl);
+		mushroom.update(currentTimeMillis());
+		mushroom.draw();
 
 		gl.glPopMatrix();
 

@@ -32,10 +32,6 @@ public class MatrixR4 {
         return this.values;
     }
 
-    public float get(int index) {
-        return this.values[index];
-    }
-
     public float get(int r, int c) {
         return this.values[r * 4 + c];
     }
@@ -64,7 +60,7 @@ public class MatrixR4 {
         return result;
     }
 
-    public VectorR4 mult(VectorR4 o) {
+    VectorR4 mult(VectorR4 o) {
         VectorR4 result = new VectorR4();
         for(int r = 0; r < 4; ++r)
         {
