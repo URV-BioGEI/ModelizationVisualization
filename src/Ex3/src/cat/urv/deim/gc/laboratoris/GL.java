@@ -65,7 +65,7 @@ public class GL {
             VectorR2 v2 = GL.getViewport().normalize(newVertex);
             GL.currentPolygon.add(v2);
         }
-        else  // Es centinella, el fiquem a dins tal cual
+        else  // Es centinella, el fiquem a dins tal qual
         {
             GL.currentPolygon.add(new VectorR2((int)x, (int)y));
         }
