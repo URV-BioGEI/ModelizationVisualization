@@ -59,7 +59,7 @@ public class Laboratori3 extends Application {
 		glVertex3f(0.3f, 0.5f, 0.0f);
 		glVertex3f(0.3f, 0.52f, 0.0f);
 		glVertex3f(0.2f, 0.45f, 0.0f);
-		glVertex3f(0.1f, 0.51f, 0.0f);
+		glVertex3f(0.1f, 0.5f, 0.0f);
 		glVertex3f(0.0f, 0.42f, 0.0f);
 		glEndPolygon();
 	}
@@ -79,19 +79,14 @@ public class Laboratori3 extends Application {
 	{
 		glBeginPolygon();
 		glVertex3f(0.1f, 0.1f, 0.0f);
-		glVertex3f(0.1f, 0.2f, 0.0f);
-		glVertex3f(0.2f, 0.2f, 0.0f);
-		glVertex3f(0.2f, 0.1f, 0.0f);
+		glVertex3f(0.1f, 0.5f, 0.0f);
+		glVertex3f(0.5f, 0.5f, 0.0f);
+		glVertex3f(0.5f, 0.1f, 0.0f);
 		glVertex3f(-1.0f, -1.0f, 0.0f);
 		glVertex3f(0.14f, 0.14f, 0.0f);
-		glVertex3f(0.14f, 0.16f, 0.0f);
-		glVertex3f(0.16f, 0.16f, 0.0f);
-		glVertex3f(0.16f, 0.14f, 0.0f);
-		glVertex3f(-1.0f, -1.0f, 0.0f);
-		glVertex3f(0.17f, 0.17f, 0.0f);
-		glVertex3f(0.17f, 0.19f, 0.0f);
-		glVertex3f(0.19f, 0.19f, 0.0f);
-		glVertex3f(0.19f, 0.17f, 0.0f);
+		glVertex3f(0.14f, 0.4f, 0.0f);
+		glVertex3f(0.4f, 0.4f, 0.0f);
+		glVertex3f(0.4f, 0.14f, 0.0f);
 		glVertex3f(-1.0f, -1.0f, 0.0f);
 		glEndPolygon();
 	}
@@ -136,6 +131,28 @@ public class Laboratori3 extends Application {
 		glTranslatef( 1.0f, 0.0f, 0.0f);
 		setColor(0.0f, 0.0f, 1.0f);
 		drawHoledPolygon();
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(5.0f * angle, 0.0f, 1.0f, 1.0f);
+		glTranslatef( 1.0f, 0.0f, 0.0f);
+		setColor(1.0f, 0.0f, 1.0f);
+		drawTriangle();
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(1.0f * angle, 1.0f, 0.0f, 1.0f);
+		glScalef(1.0f, 1.0f, 1.0f);
+		glTranslatef( 1.0f, 1.0f, 1.0f);
+		setColor(0.0f, 1.0f, 1.0f);
+		drawPentagon();
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(angle, 1.0f, 2.0f, 1.0f);
+		glTranslatef(-2.0f, 1.0f, -3.0f);
+		setColor(1.0f, 1.0f, 0.0f);
+		drawRectangle();
 		glPopMatrix();
 
 		angle += 3.0f;
