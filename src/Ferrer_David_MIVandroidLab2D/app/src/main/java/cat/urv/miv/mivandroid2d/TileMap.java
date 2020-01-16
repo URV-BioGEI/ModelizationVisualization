@@ -32,11 +32,9 @@ public class TileMap {
 
         String[] parts;
         Square square;
-        int total_rows, total_columns, row, column, i, previous_num =Integer.MIN_VALUE;
+        int total_rows, row, column, i;
 
-        InputStream inputStream = context.getResources().openRawResource(resourceId);
-
-        BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resourceId)));
         try {
             // Llegeixo l'amplada i alçada de les tiles en pixels
             parts = r.readLine().split("\\s+");
@@ -44,7 +42,7 @@ public class TileMap {
             tile_height = Integer.parseInt(parts[1]);
 
             total_rows = texture.getWidth() / tile_width;
-            total_columns = texture.getHeight() / tile_height;
+            //total_columns = texture.getHeight() / tile_height;
 
             //Llegeixo el numero de columnes i files del fitxer
             parts = r.readLine().split("\\s+");
