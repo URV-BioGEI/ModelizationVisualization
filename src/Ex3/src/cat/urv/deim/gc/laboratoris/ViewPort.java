@@ -26,6 +26,10 @@ public class ViewPort {
             int coordinadaX = (int)((float)this.x + (newVertex.get(0) / newVertex.get(3) + 1.0F) * ((float)this.width / 2.0F));
             int coordinadaY = (int)((float)this.y + (-1.0F * newVertex.get(1) / newVertex.get(3) + 1.0F) * ((float)this.height / 2.0F));
 
+            System.out.println(this.y + " " + newVertex.get(1) + " " + newVertex.get(3) + " " + this.height);
+            System.out.println(-newVertex.get(1) / newVertex.get(3));
+            System.out.println(coordinadaX);
+
             return new VectorR2(coordinadaX, coordinadaY);
         }
 }

@@ -16,4 +16,9 @@ public class VectorR2 {
     public int getY() {
         return y;
     }
+
+    public String toString()
+    {
+        return "(" + this.x + ", " + this.y + ")";
+    }
 }

@@ -23,7 +23,7 @@ public class Square {
 	// Our index buffer.
 	private ShortBuffer indexBuffer;
 
-	// Texture varaibles.
+	// Texture variables.
 	private Texture texture;
 	private FloatBuffer texCoordBuffer;
 	private Boolean textureEnabled = false;

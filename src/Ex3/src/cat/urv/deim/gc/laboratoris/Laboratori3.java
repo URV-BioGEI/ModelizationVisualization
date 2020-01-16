@@ -91,6 +91,34 @@ public class Laboratori3 extends Application {
 		glEndPolygon();
 	}
 
+	private void drawPoliedro()
+	{
+		setColor(1.0f, 0.0f, 0.0f);
+		glBeginPolygon();
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 0.0f, 0.6f);
+		glVertex3f(0.6f, 0.0f, 0.0f);
+		glEndPolygon();
+		setColor(0.0f, 1.0f, 0.0f);
+		glBeginPolygon();
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 0.6f, 0.0f);
+		glVertex3f(0.6f, 0.0f, 0.0f);
+		glEndPolygon();
+		setColor(0.0f, 0.0f, 1.0f);
+		glBeginPolygon();
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 0.6f, 0.0f);
+		glVertex3f(0.0f, 0.0f, 0.6f);
+		glEndPolygon();
+		setColor(0.0f, 1.0f, 1.0f);
+		glBeginPolygon();
+		glVertex3f(0.6f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 0.6f, 0.0f);
+		glVertex3f(0.0f, 0.0f, 0.6f);
+		glEndPolygon();
+	}
+
 	public void paint() {
 		int width = getPanelWidth();
 		int height = getPanelHeight();
@@ -102,7 +130,7 @@ public class Laboratori3 extends Application {
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60.0f, aspect, 0.1f, 1000.0f);
+		gluPerspective(80.0f, aspect, 0.1f, 1000.0f);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -146,6 +174,12 @@ public class Laboratori3 extends Application {
 		glTranslatef( 1.0f, 1.0f, 1.0f);
 		setColor(0.0f, 1.0f, 1.0f);
 		drawPentagon();
+		glPopMatrix();
+
+		glPushMatrix();
+		glRotatef(1.0f * angle, 1.0f, 1.0f, 1.0f);
+		glTranslatef( 1.0f, 2.0f, 1.0f);
+		drawPoliedro();
 		glPopMatrix();
 
 		glPushMatrix();

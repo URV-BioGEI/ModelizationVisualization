@@ -18,6 +18,7 @@ public class Laboratori2 extends Application {
 		int height = getPanelHeight();
 
 		//Poligon exemple
+
 		setColor(1.0f, 0.0f, 0.0f);
 		fillPolygon(
 				(int) (0.2f * width), (int) (0.6f * height),
@@ -33,7 +34,8 @@ public class Laboratori2 extends Application {
 				(int) (0.8f * width), (int) (0.4f * height),
 				(int) (0.7f * width), (int) (0.7f * height),
 				(int) (0.4f * width), (int) (0.9f * height));
-		/*
+
+
 		// quadradet irregular lila
 		setColor(0.6f, 0.5f, 1.0f);
 		drawPolygon(
@@ -48,7 +50,6 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.4f * height),
 				(int) (0.4f * width), (int) (0.3f * height)
 		);
-		 */
 		// doble piramide caqui
 		setColor(0.3f, 0.4f, 0.1f);
 		drawPolygon(
@@ -91,7 +92,7 @@ public class Laboratori2 extends Application {
 				(int) (0.1f * width), (int) (0.5f * height),
 				(int) (0.0f * width), (int) (0.4f * height)
 		);
-		/*
+
 		// rombe verd clar
 
 		setColor(0.6f, 0.f, 1.0f);
@@ -127,7 +128,7 @@ public class Laboratori2 extends Application {
 				(int) (0.9f * width), (int) (0.3f * height),
 				(int) (0.8f * width), (int) (0.2f * height)
 		);
-
+		/*
 		// quadradet blau cel
 		setColor(0.6f, 1.0f, 1.0f);
 		drawPolygon(
@@ -143,6 +144,7 @@ public class Laboratori2 extends Application {
 				(int) (0.2f * width), (int) (0.2f * height),
 				(int) (0.2f * width), (int) (0.1f * height)
 		);
+		*/
 
 		// quadradet blau marí regular al costat
 		setColor(0.6f, 0.5f, 1.0f);
@@ -185,7 +187,7 @@ public class Laboratori2 extends Application {
 				(int) (0.4f * width), (int) (0.5f * height),
 				(int) (0.7f * width), (int) (0.5f * height)
 		);
-		*/
+
 		/*
 		// triangle rosa
 		setColor(0.9f, 0.0f, 0.7f);
@@ -200,8 +202,8 @@ public class Laboratori2 extends Application {
 				(int) (0.1f * width), (int) (0.2f * height),
 				(int) (0.2f * width), (int) (0.2f * height)
 		);
-
 		*/
+
 		// quadrat amb dos quadradets en forat
 		setColor(0.6f, 1.0f, 1.0f);
 		drawPolygon(
@@ -239,7 +241,46 @@ public class Laboratori2 extends Application {
 				(int) (0.19f * width), (int) (0.17f * height),
 				(int) (-1), (int) (-1)
 		);
-		/*
+
+		// Pentagon color vi amb forats
+		setColor(0.7f, 0.1f, 0.5f);
+		drawPolygon(
+				(int) (0.6f * width), (int) (0.6f * height),
+				(int) (0.6f * width), (int) (0.7f * height),
+				(int) (0.7f * width), (int) (0.7f * height),
+				(int) (0.7f * width), (int) (0.6f * height),
+				(int) (0.65f * width), (int) (0.5f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.64f * width), (int) (0.64f * height),
+				(int) (0.64f * width), (int) (0.66f * height),
+				(int) (0.66f * width), (int) (0.66f * height),
+				(int) (0.66f * width), (int) (0.64f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.67f * width), (int) (0.67f * height),
+				(int) (0.67f * width), (int) (0.69f * height),
+				(int) (0.69f * width), (int) (0.69f * height),
+				(int) (-1), (int) (-1)
+		);
+		setColor(0.7f, 0.1f, 0.5f);
+		fillPolygon(
+				(int) (0.6f * width), (int) (0.6f * height),
+				(int) (0.6f * width), (int) (0.7f * height),
+				(int) (0.7f * width), (int) (0.7f * height),
+				(int) (0.7f * width), (int) (0.6f * height),
+				(int) (0.65f * width), (int) (0.5f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.64f * width), (int) (0.64f * height),
+				(int) (0.64f * width), (int) (0.66f * height),
+				(int) (0.66f * width), (int) (0.66f * height),
+				(int) (0.66f * width), (int) (0.64f * height),
+				(int) (-1), (int) (-1),
+				(int) (0.67f * width), (int) (0.67f * height),
+				(int) (0.67f * width), (int) (0.69f * height),
+				(int) (0.69f * width), (int) (0.69f * height),
+				(int) (-1), (int) (-1)
+		);
+
+
 		// Poligon de 7 costats
 		setColor(0.11f,0.79f,0.09f);
 		fillPolygon(
@@ -261,8 +302,8 @@ public class Laboratori2 extends Application {
 				(int) (0.5f * width), (int) (0.9f * height),
 				(int) (0.3f * width), (int) (0.7f * height));
 
-		 */
 	}
+
 
 	// Practica 2, implementa defineDrawPolygon i defineFillPolygon
 	// Hint: Pots utilitzar l'algorisme Scan line fill polygon

@@ -16,39 +16,47 @@ public class Laboratori1 extends Application {
 	 * @author Aleix Mariné Tena
 	 */
 	public void paint() {
-
+		/*
 		setColor((float)0.9, (float)0.27, (float)0.27);
 		defineDrawLine(200, 200, 200, 300);  // vertical baix a dalt
+
 		setColor((float)0.6, (float)0.4, (float)0);
-		defineDrawLine(300, 400, 300, 300);  // vertical inversa
+		defineDrawLine(300, 400, 300, 300);  // vertical dalt a baix
 
 		setColor((float)0.99, (float)0, (float)0.99);
 		defineDrawLine(200, 200, 400, 200);  // horitzontal esquerra a dreta
+
 		setColor((float)0.6, (float)0.8, (float)0.2);
-		defineDrawLine(500, 300, 300, 300);  // horitzontal inversa
+		defineDrawLine(500, 300, 300, 300);  // horitzontal dreta a esquerra
 
 		setColor((float)0.2, (float)0.3, (float)0.556);
 		defineDrawLine(100, 100, 200, 200);  // m = 1 esquerra a dreta
-		setColor((float)0.4, (float)0.5, (float)0.756);
-		defineDrawLine(400, 400, 300, 300);  // m = 1 inversa
 
-		setColor((float)0.99, (float)0.0, (float)0.3);
-		defineDrawLine(300, 400, 150, 300);  // Recta amb pendent < 1 on els vèrtexs s’indiquen de dreta a esquerra. m = 100 / 150
+		setColor((float)0.4, (float)0.5, (float)0.756);
+		defineDrawLine(400, 400, 300, 300);  // m = 1 dreta a esquerra
+
 		setColor((float)0.87, (float)0.3, (float)0.1);
 		defineDrawLine(250, 400, 425, 500);  // Recta amb pendent < 1 on els vèrtexs s’indiquen d’esquerra a dreta. m = 100 / 175
 
+		setColor((float)0.99, (float)0.0, (float)0.3);
+		defineDrawLine(300, 400, 150, 300);  // Recta amb pendent < 1 on els vèrtexs s’indiquen de dreta a esquerra. m = 100 / 150
+
 		setColor((float)0.97, (float)0.99, (float)0.99);
 		defineDrawLine(125, 400, 250, 600);  // Recta amb pendent > 1 on els vèrtexs s’indiquen d’esquerra a dreta. m = 200 / 125
+
 		setColor((float)0.1, (float)0.8, (float)0.3);
 		defineDrawLine(100, 300, 250, 600);  // Recta amb pendent > 1 on els vèrtexs s’indiquen de dreta a esquerra. m = 300 / 150
 
+
+		 */
 		setColor((float)0, (float)0.9, (float)0.27);
 		defineDrawLine(550, 600, 400, 1000);  // Recta amb pendent negativa
 
+		/*
 		setColor((float)0, (float)0, (float)0.9);
 		defineDrawLine(400, 600, 0, 1000);  // Recta amb pendent -1
 
-
+		/*
 
 		//defineDrawLine(0, 0, -15, -16);
 		//defineDrawLine(2, 20, 1, -7);

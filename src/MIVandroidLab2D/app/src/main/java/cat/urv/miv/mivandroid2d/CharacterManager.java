@@ -42,7 +42,7 @@ public class CharacterManager {
 
     public void  readFile(Context context, int resourceId) {
         String[] parts;
-        String name,previousName = null;
+        String previousName = null;
         Square square;
         int totalWidth=texture.getWidth(), totalHeight=texture.getHeight(), xIni, yIni,
                 texWidth, texHeight;
@@ -77,5 +77,13 @@ public class CharacterManager {
         }
         catch (IOException e){
         }
+    }
+
+    public void setCurrentFrame(int frame) {
+        currentAnimation.setCurrentFrame(frame);
+    }
+
+    public void setSpeed(String name, float speed) {
+        this.animations.get(name).setSpeed(speed);
     }
 }
