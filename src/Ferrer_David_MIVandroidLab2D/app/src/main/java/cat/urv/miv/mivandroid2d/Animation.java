@@ -34,7 +34,7 @@ public class Animation {
         if (time - currentTime >= (long)speed){
             currentTime = time;
             currentFrame++;
-            if(currentFrame >= squareList.size()) currentFrame=0;
+            if(currentFrame >= squareList.size()) currentFrame = 0;
         }
     }
 
@@ -44,7 +44,7 @@ public class Animation {
     }
 
     public void setSpeed(float speed){
-        this.speed=speed;
+        this.speed = speed;
     }
 
 }
