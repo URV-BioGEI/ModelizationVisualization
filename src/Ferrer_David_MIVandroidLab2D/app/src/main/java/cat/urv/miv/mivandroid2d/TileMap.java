@@ -52,8 +52,8 @@ public class TileMap {
                 if(!line.contentEquals("")) {
                     parts = line.split("\\s+");
                     for (int j = 0; j < parts.length; j++) {
-                        column = (Integer.parseInt(parts[j]) / total_rows);
-                        row = Integer.parseInt(parts[j]) % total_rows;
+                        column = (Integer.parseInt(parts[j]) % total_rows);
+                        row = Integer.parseInt(parts[j]) / total_rows;
                         if(Integer.parseInt(parts[j]) > previous_num) {
                             previous_num = Integer.parseInt(parts[j]);
                             total_movements++;
@@ -64,13 +64,13 @@ public class TileMap {
 
                         square.setTexture(texture, new float[]{
                                 //0,1
-                                (float) row*tile_width/ texture.getWidth(), (float) (column*tile_height + tile_height) / texture.getHeight(),
+                                (float) column*tile_width/ texture.getWidth(), (float) (row*tile_height + tile_height) / texture.getHeight(),
                                 //0,0
-                                (float) row*tile_width / texture.getWidth(), (float) column*tile_height / texture.getHeight(),
+                                (float) column*tile_width / texture.getWidth(), (float)  row*tile_height / texture.getHeight(),
                                 //1,0
-                                (float) (row*tile_width + tile_width) / texture.getWidth(), (float) column*tile_height / texture.getHeight(),
+                                (float) (column*tile_width + tile_width) / texture.getWidth(), (float) row*tile_height / texture.getHeight(),
                                 //1,1
-                                (float) (row*tile_width + tile_width) / texture.getWidth(), (float) (column*tile_height + tile_height) / texture.getHeight(),
+                                (float) (column*tile_width + tile_width) / texture.getWidth(), (float) (row*tile_height + tile_height) / texture.getHeight(),
                                 });
                         tilemap[i][j]=square;
                     }

@@ -18,22 +18,26 @@ public class Animation {
     private long currentTime;  // Time that this animation has been displayed
     private GL10 gl;  // Reference to OpenGL renderer
 
-    public Animation(GL10 gl) {
+    public Animation(GL10 gl)
+    {
         this.gl = gl;
         squareList = new LinkedList<>();
         currentFrame = 0;
         currentTime = currentTimeMillis();
     }
 
-    public void addSquare(Square square){
+    public void addSquare(Square square)
+    {
         squareList.add(square);
     }
 
-    public  void draw(){
+    public  void draw()
+    {
         squareList.get(currentFrame).draw(gl);
     }
 
-    public void update(long time){
+    public void update(long time)
+    {
         if (time - currentTime >= (long)speed){
             currentTime = time;
             currentFrame++;
@@ -46,7 +50,8 @@ public class Animation {
         this.currentFrame = frame;
     }
 
-    public void setSpeed(float speed){
+    public void setSpeed(float speed)
+    {
         this.speed = speed;
     }
 
