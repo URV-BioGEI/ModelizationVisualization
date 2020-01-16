@@ -19,7 +19,7 @@ public class TileMap {
     private float  init_position = -20, position;  // Used to control the movement of the tilemap
     private float speed = 0.05f;  // Relative speed of the tilemap compared to the movmenet of the camera
     private int tile_width, tile_height;  // sizes of each tile in the tilemap
-    private int tilemapRows, tilemapColumns;
+    private int tilemapRows, tilemapColumns;  // number of columns and row in the tilemap texture
 
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
@@ -61,14 +61,10 @@ public class TileMap {
                         square = new Square();
 
                         square.setTexture(texture, new float[]{
-                                //0,1
-                                (float) column*tile_width/ texture.getWidth(), (float) (row*tile_height + tile_height) / texture.getHeight(),
-                                //0,0
-                                (float) column*tile_width / texture.getWidth(), (float)  row*tile_height / texture.getHeight(),
-                                //1,0
-                                (float) (column*tile_width + tile_width) / texture.getWidth(), (float) row*tile_height / texture.getHeight(),
-                                //1,1
-                                (float) (column*tile_width + tile_width) / texture.getWidth(), (float) (row*tile_height + tile_height) / texture.getHeight(),
+                                (float) (column * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
+                                (float) (column * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
+                                (float) ((column + 1) * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
+                                (float) ((column + 1) * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
                                 });
                         tilemap[i][j]=square;
                     }
