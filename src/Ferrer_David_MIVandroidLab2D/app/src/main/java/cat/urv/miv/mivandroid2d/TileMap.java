@@ -19,8 +19,7 @@ public class TileMap {
     private float  init_position = -20, position;  // Used to control the movement of the tilemap
     private float speed = 0.05f;  // Relative speed of the tilemap compared to the movmenet of the camera
     private int tile_width, tile_height;  // sizes of each tile in the tilemap
-    private int tilemapRows, tilemapColumns;  // number of columns and row in the tilemap texture
-
+    private int tilemapRows, tilemapColumns;  // number of columns and row in the tilemap txt
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
         this.gl = gl;
@@ -42,7 +41,7 @@ public class TileMap {
             tile_width = Integer.parseInt(parts[0]);
             tile_height = Integer.parseInt(parts[1]);
 
-            total_rows = texture.getWidth() / tile_width;
+            total_rows = texture.getWidth() / tile_width;  // Total rows in the tilemap texture
             //total_columns = texture.getHeight() / tile_height;
 
             //Llegeixo el numero de columnes i files del fitxer
@@ -71,7 +70,9 @@ public class TileMap {
                 }
             }
         }
-        catch (IOException e){
+        catch (IOException e)
+        {
+
         }
     }
 
@@ -80,9 +81,10 @@ public class TileMap {
         gl.glTranslatef(position,0,0);
 
 
-        for(int i=0;i<tilemap.length;i++){
+        for (int i = 0; i < tilemap.length; i++){
             gl.glPushMatrix();
-            for(int j=0;j<tilemap[0].length;j++){
+            for (int j = 0; j < tilemap[0].length; j++)
+            {
                 gl.glTranslatef(2f, 0 ,0);
                 tilemap[i][j].draw(gl);
             }
@@ -90,9 +92,9 @@ public class TileMap {
             gl.glTranslatef(0, -2f ,0);
         }
 
-        position-=speed;
-        //if()
-        if(position < (-tilemap[0].length)){
+        position -= speed;
+        if (position < (-tilemapColumns))
+        {
             position = init_position;
         }
         gl.glPopMatrix();
