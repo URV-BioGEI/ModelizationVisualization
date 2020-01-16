@@ -15,7 +15,7 @@ public class TileMap {
     private Square tilemap[][];
     private float  init_position= -15, position;
     private float speed = 0.05f;
-    private int tile_width, tile_height;
+    private int tile_width, tile_height, movements=0, total_movements=0;
 
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
@@ -54,7 +54,12 @@ public class TileMap {
                     for (int j = 0; j < parts.length; j++) {
                         column = (Integer.parseInt(parts[j]) / total_rows);
                         row = Integer.parseInt(parts[j]) % total_rows;
-
+                        if(Integer.parseInt(parts[j]) > previous_num) {
+                            previous_num = Integer.parseInt(parts[j]);
+                            total_movements++;
+                        } else{
+                            previous_num = Integer.MAX_VALUE;
+                        }
                         square = new Square();
 
                         square.setTexture(texture, new float[]{
@@ -66,7 +71,7 @@ public class TileMap {
                                 (float) (row*tile_width + tile_width) / texture.getWidth(), (float) column*tile_height / texture.getHeight(),
                                 //1,1
                                 (float) (row*tile_width + tile_width) / texture.getWidth(), (float) (column*tile_height + tile_height) / texture.getHeight(),
-                        });
+                                });
                         tilemap[i][j]=square;
                     }
                     i++;
