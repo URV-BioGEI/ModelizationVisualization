@@ -33,7 +33,7 @@ public class TileMap {
 
         String[] parts;
         Square square;
-        int total_rows, row, column, i;
+        int total_rows, row, column;
 
         BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resourceId)));
         try {
@@ -51,24 +51,23 @@ public class TileMap {
             tilemapColumns = Integer.parseInt(parts[0]);
             tilemap = new Square[tilemapRows][tilemapColumns];
 
-            i=0;
-            for (String line; (line = r.readLine()) != null;) {
-                if (!line.contentEquals("")) {
-                    parts = line.split("\\s+");
-                    for (int j = 0; j < parts.length; j++) {
-                        column = (Integer.parseInt(parts[j]) % total_rows);
-                        row = Integer.parseInt(parts[j]) / total_rows;
-                        square = new Square();
+            String line;
+            for (int i = 0; i < tilemapRows; i++)
+            {
+                line = r.readLine();
+                parts = line.split("\\s+");
+                for (int j = 0; j < tilemapColumns; j++) {
+                    column = (Integer.parseInt(parts[j]) % total_rows);
+                    row = Integer.parseInt(parts[j]) / total_rows;
+                    square = new Square();
 
-                        square.setTexture(texture, new float[]{
-                                (float) (column * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
-                                (float) (column * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
-                                (float) ((column + 1) * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
-                                (float) ((column + 1) * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
-                                });
-                        tilemap[i][j]=square;
-                    }
-                    i++;
+                    square.setTexture(texture, new float[]{
+                            (float) (column * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
+                            (float) (column * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
+                            (float) ((column + 1) * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
+                            (float) ((column + 1) * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
+                            });
+                    tilemap[i][j] = square;
                 }
             }
         }
