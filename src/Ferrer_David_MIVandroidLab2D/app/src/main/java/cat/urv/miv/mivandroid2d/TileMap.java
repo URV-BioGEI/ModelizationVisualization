@@ -9,17 +9,20 @@ import java.io.InputStreamReader;
 
 import javax.microedition.khronos.opengles.GL10;
 
+/**
+ * Class to store and control everything related with a tilemap
+ */
 public class TileMap {
-    private Texture texture;
-    private GL10 gl;
-    private Square tilemap[][];
-    private float  init_position= -15, position;
-    private float speed = 0.05f;
-    private int tile_width, tile_height, movements=0, total_movements=0;
+    private Texture texture;  // Texture of the tilemap
+    private GL10 gl;  // Reference to openGl renderer
+    private Square tilemap[][];  // matrix to store each square of the tilemap
+    private float  init_position = -20, position;  // Used to control the movement of the tilemap
+    private float speed = 0.05f;  // Relative speed of the tilemap compared to the movmenet of the camera
+    private int tile_width, tile_height;  // sizes of each tile in the tilemap
 
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
-        this.gl=gl;
+        this.gl = gl;
         texture = new Texture(gl, context, resource_image);
         readFile(context, resource_text);
         position = init_position;
@@ -39,7 +42,7 @@ public class TileMap {
             parts = r.readLine().split("\\s+");
             tile_width = Integer.parseInt(parts[0]);
             tile_height = Integer.parseInt(parts[1]);
-            if(tile_width == 16) init_position = -20;
+
             total_rows = texture.getWidth() / tile_width;
             total_columns = texture.getHeight() / tile_height;
 
@@ -54,12 +57,6 @@ public class TileMap {
                     for (int j = 0; j < parts.length; j++) {
                         column = (Integer.parseInt(parts[j]) % total_rows);
                         row = Integer.parseInt(parts[j]) / total_rows;
-                        if(Integer.parseInt(parts[j]) > previous_num) {
-                            previous_num = Integer.parseInt(parts[j]);
-                            total_movements++;
-                        } else{
-                            previous_num = Integer.MAX_VALUE;
-                        }
                         square = new Square();
 
                         square.setTexture(texture, new float[]{
