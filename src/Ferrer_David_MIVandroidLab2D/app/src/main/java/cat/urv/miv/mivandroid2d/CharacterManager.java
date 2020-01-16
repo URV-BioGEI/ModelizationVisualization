@@ -69,11 +69,15 @@ public class CharacterManager {
                     yIni = Integer.parseInt(parts[3]);
                     texWidth = Integer.parseInt(parts[4]);
                     texHeight = Integer.parseInt(parts[5]);
-                    yIni = texture.getHeight() - yIni - texHeight;  // variable change
-
+                    /*
+                     * En aquest punt referenciem el tile actual utilitzant com a eix de referencia y el bottom de la imatge
+                     * i l'eix de referencia x desde left. Apliquem una transformació a Y per a canviar l'eix de coordinades a top
+                     * i restem la longitud d'altura per a que ens apunti a la cantonada superior esquerre de la imatge, que sera
+                     * el punt del tile actual mes proper als eixos que acabem de configurar: X es left i Y es top
+                     */
+                    yIni = texture.getHeight() - yIni - texHeight;  // Apliquem transformació
 
                     square = new Square();
-                    /* L'ordre correcte és (0,0) (0,1) (1,1) (1,0) */
                     square.setTexture(texture,new float[]{
                             (float) (xIni) / totalWidth,(float) (yIni + texHeight) /totalHeight,
                             (float)xIni / totalWidth,(float)(yIni)/totalHeight,
