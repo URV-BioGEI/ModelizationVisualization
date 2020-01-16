@@ -78,11 +78,11 @@ public class CharacterManager {
                     yIni = texture.getHeight() - yIni - texHeight;  // Apliquem transformació
 
                     square = new Square();
-                    square.setTexture(texture,new float[]{
-                            (float) (xIni) / totalWidth,(float) (yIni + texHeight) /totalHeight,
-                            (float)xIni / totalWidth,(float)(yIni)/totalHeight,
-                            (float)(xIni + texWidth)/totalWidth,(float)(yIni)/totalHeight,
-                            (float)(xIni+texWidth)/totalWidth,(float)(yIni + texHeight)/totalHeight});
+                    square.setTexture(texture, new float[]{
+                            (float) xIni / totalWidth, (float) (yIni + texHeight) / totalHeight,
+                            (float) xIni / totalWidth, (float) (yIni) / totalHeight,
+                            (float) (xIni + texWidth) / totalWidth, (float) (yIni) / totalHeight,
+                            (float) (xIni + texWidth) / totalWidth, (float) (yIni + texHeight) / totalHeight});
                     animations.get(parts[0]).addSquare(square);
                 }
             }
