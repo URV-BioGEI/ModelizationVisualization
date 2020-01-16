@@ -7,13 +7,16 @@ import javax.microedition.khronos.opengles.GL10;
 
 import static java.lang.System.currentTimeMillis;
 
+/**
+ * Class that stores an animation
+ */
 public class Animation {
 
-    private List<Square> squareList;
-    private float speed = 30;
-    private int currentFrame;
-    private long currentTime;
-    private GL10 gl;
+    private List<Square> squareList;  // List of frames of the animation
+    private float speed = 30;  // Speed of animation run (in ms)
+    private int currentFrame;  // Current frame that is being displayed in the program
+    private long currentTime;  // Time that this animation has been displayed
+    private GL10 gl;  // Reference to OpenGL renderer
 
     public Animation(GL10 gl) {
         this.gl = gl;
