@@ -19,6 +19,7 @@ public class TileMap {
     private float  init_position = -20, position;  // Used to control the movement of the tilemap
     private float speed = 0.05f;  // Relative speed of the tilemap compared to the movmenet of the camera
     private int tile_width, tile_height;  // sizes of each tile in the tilemap
+    private int tilemapRows, tilemapColumns;
 
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
@@ -46,11 +47,13 @@ public class TileMap {
 
             //Llegeixo el numero de columnes i files del fitxer
             parts = r.readLine().split("\\s+");
-            tilemap = new Square[Integer.parseInt(parts[1])][Integer.parseInt(parts[0])];
+            tilemapRows = Integer.parseInt(parts[1]);
+            tilemapColumns = Integer.parseInt(parts[0]);
+            tilemap = new Square[tilemapRows][tilemapColumns];
 
             i=0;
             for (String line; (line = r.readLine()) != null;) {
-                if(!line.contentEquals("")) {
+                if (!line.contentEquals("")) {
                     parts = line.split("\\s+");
                     for (int j = 0; j < parts.length; j++) {
                         column = (Integer.parseInt(parts[j]) % total_rows);
