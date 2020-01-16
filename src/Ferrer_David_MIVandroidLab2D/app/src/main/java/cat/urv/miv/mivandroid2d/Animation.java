@@ -16,7 +16,7 @@ public class Animation {
     private GL10 gl;
 
     public Animation(GL10 gl) {
-        this.gl=gl;
+        this.gl = gl;
         squareList = new LinkedList<>();
         currentFrame = 0;
         currentTime = currentTimeMillis();
@@ -31,10 +31,10 @@ public class Animation {
     }
 
     public void update(long time){
-        if (time-currentTime>=(long)speed){
-            currentTime=time;
+        if (time - currentTime >= (long)speed){
+            currentTime = time;
             currentFrame++;
-            if(currentFrame>=squareList.size()) currentFrame=0;
+            if(currentFrame >= squareList.size()) currentFrame=0;
         }
     }
 
