@@ -9,6 +9,7 @@ import java.util.Arrays;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Square {
+	//
 	private float vertices[] = {-1.0f, -1.0f, 0.0f,
 			-1.0f,  1.0f, 0.0f,
 			1.0f,  1.0f, 0.0f,

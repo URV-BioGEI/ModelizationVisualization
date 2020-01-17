@@ -23,7 +23,6 @@ public class CharacterManager {
         this.animations = new HashMap<>();
         texture = new Texture(gl, context, resource_image);
 
-
         String[] parts;
         String previousName = null;
         Square square;

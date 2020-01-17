@@ -21,16 +21,22 @@ public class TileMap {
 
     // Scroll parallax control
     private float
-            init_position = -20,  // Initial position of the tilemap
+            //init_position = -20,  // Initial position of the tilemap
             position,  // Used to control the movement of the tilemap
             speed = 0.05f;  // Relative speed of the tilemap compared to the movement of the camera
+
+    public TileMap(GL10 gl, Context context, int resource_image, int resource_text, float speed, float position)
+    {
+        this(gl, context, resource_image, resource_text);  // Constructor overload
+        this.speed = speed;
+        this.position = position;
+    }
 
 
     public TileMap(GL10 gl, Context context, int resource_image, int resource_text)
     {
         this.gl = gl;
         texture = new Texture(gl, context, resource_image);
-        position = init_position;
 
         String[] parts;
         Square square;
@@ -83,10 +89,10 @@ public class TileMap {
         gl.glPushMatrix();
         gl.glTranslatef(position,0,0);
 
-
-        for (int i = 0; i < tilemap.length; i++){
+        // Coordinate origin: bottom left
+        for (int i = 0; i < tilemapRows; i++){  // First indexed squares are the ones at the top
             gl.glPushMatrix();
-            for (int j = 0; j < tilemap[0].length; j++)
+            for (int j = 0; j < tilemapColumns; j++)
             {
                 gl.glTranslatef(2f, 0 ,0);
                 tilemap[i][j].draw(gl);
@@ -96,9 +102,9 @@ public class TileMap {
         }
 
         position -= speed;
-        if (position < (-tilemapColumns))
+        if (position + tilemapColumns * 2f < -20)  // When the tilemap is out of the screen
         {
-            position = init_position;
+            position = position + tilemapColumns * 2f;  // Move 2f * tilemapColumns * 2 to the right so we reach the end of the second tilemap
         }
         gl.glPopMatrix();
     }
@@ -106,5 +112,8 @@ public class TileMap {
     public void setSpeed(float speed){
         this.speed = speed;
     }
+
+    public int getTilemapColumns() { return this.tilemapColumns; }
+
 
 }

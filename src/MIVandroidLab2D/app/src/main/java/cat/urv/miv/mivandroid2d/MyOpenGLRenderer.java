@@ -16,7 +16,8 @@ public class MyOpenGLRenderer implements Renderer {
 	private GL10 gl;
 	private CharacterManager mario, coinHUD, coinJump;
 	private CharacterManager num1, num2, num3;
-	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5;
+
+	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap1_2, tileMap2_2, tileMap3_2, tileMap4_2, tileMap5_2;
 	private boolean isJumping = false, jumpInit = false, jumpTop = false;
 	private int framesJumping = 0, framesLanding = 0;
 	private float actualPositionY = GROUND, positionX = -5.0f;
@@ -37,25 +38,28 @@ public class MyOpenGLRenderer implements Renderer {
 		// Image Background color
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 
+		// Enable Blend textures and alpha channel
 		gl.glEnable(gl.GL_BLEND);
 		gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA);
 
+		// Create Music Player
 		musicPlayer = new MusicPlayer();
+		// Play init sound
 		musicPlayer.PlaySound(context, R.raw.mario_lets_go);
 
 		try {
-			tileMap1 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1);
-			tileMap2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap2);
-			tileMap3 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap3);
-			tileMap4 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap4);
-			tileMap5 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5);
-			tileMap1.setSpeed(0.02f);
-			tileMap3.setSpeed(0.03f);
-			tileMap4.setSpeed(0.2f);
-			tileMap5.setSpeed(0.3f);
+			// Create tilemaps
+			tileMap1 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.9f, -20);  // Top sky clouds
+			tileMap1_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.9f, -20 + tileMap1.getTilemapColumns() * 2f);  // Top sky clouds
+
+			tileMap2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap2, 0.03f, -20);  // Bottom sky clouds
+			tileMap3 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap3, 0.1f, -20);  // Back mountains
+			tileMap4 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap4, 0.2f, -20);  // front mountains
+			tileMap5 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20);  // Foreground ground
+
+			// Create Mario
 			mario = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
 			mario.setAnimation("walk");
-			mario.setSpeed("walk", 30);
 
 			coinHUD = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);
 			coinHUD.setAnimation("move");
@@ -70,7 +74,7 @@ public class MyOpenGLRenderer implements Renderer {
 
 		}
 		catch (Exception e){
-			System.out.println(e);
+			System.out.println(e.toString());
 		}
 
 	}
