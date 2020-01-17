@@ -16,26 +16,29 @@ public class TileMap {
     private Texture texture;  // Texture of the tilemap
     private GL10 gl;  // Reference to openGl renderer
     private Square tilemap[][];  // matrix to store each square of the tilemap
-    private float  init_position = -20, position;  // Used to control the movement of the tilemap
-    private float speed = 0.05f;  // Relative speed of the tilemap compared to the movmenet of the camera
     private int tile_width, tile_height;  // sizes of each tile in the tilemap
     private int tilemapRows, tilemapColumns;  // number of columns and row in the tilemap txt
 
-    public TileMap(GL10 gl, Context context, int resource_image, int resource_text){
+    // Scroll parallax control
+    private float
+            init_position = -20,  // Initial position of the tilemap
+            position,  // Used to control the movement of the tilemap
+            speed = 0.05f;  // Relative speed of the tilemap compared to the movement of the camera
+
+
+    public TileMap(GL10 gl, Context context, int resource_image, int resource_text)
+    {
         this.gl = gl;
         texture = new Texture(gl, context, resource_image);
-        readFile(context, resource_text);
         position = init_position;
-    }
-
-    public void  readFile(Context context, int resourceId) {
 
         String[] parts;
         Square square;
         int total_rows, row, column;
 
-        BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resourceId)));
-        try {
+        BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resource_text)));
+        try
+        {
             // Llegeixo l'amplada i alçada de les tiles en pixels
             parts = r.readLine().split("\\s+");
             tile_width = Integer.parseInt(parts[0]);
@@ -55,7 +58,8 @@ public class TileMap {
             {
                 line = r.readLine();
                 parts = line.split("\\s+");
-                for (int j = 0; j < tilemapColumns; j++) {
+                for (int j = 0; j < tilemapColumns; j++)
+                {
                     column = (Integer.parseInt(parts[j]) % total_rows);
                     row = Integer.parseInt(parts[j]) / total_rows;
                     square = new Square();
@@ -64,8 +68,7 @@ public class TileMap {
                             (float) (column * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
                             (float) (column * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
                             (float) ((column + 1) * tile_width) / texture.getWidth(), (float) (row * tile_height) / texture.getHeight(),
-                            (float) ((column + 1) * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),
-                            });
+                            (float) ((column + 1) * tile_width) / texture.getWidth(), (float) ((row + 1) * tile_height) / texture.getHeight(),});
                     tilemap[i][j] = square;
                 }
             }
