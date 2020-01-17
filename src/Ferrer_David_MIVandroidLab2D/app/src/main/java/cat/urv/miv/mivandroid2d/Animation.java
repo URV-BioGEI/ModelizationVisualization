@@ -8,7 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import static java.lang.System.currentTimeMillis;
 
 /**
- * Class that stores an animation
+ * Class that stores an animation. Basically is a list of squares
  */
 public class Animation {
 

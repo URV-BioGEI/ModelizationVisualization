@@ -39,7 +39,6 @@ public class GL {
         GL.getStack().push(GL.getStack().peek().clone());
     }
 
-
     static MatrixR4 popMatrix()
     {
         return GL.getStack().pop();

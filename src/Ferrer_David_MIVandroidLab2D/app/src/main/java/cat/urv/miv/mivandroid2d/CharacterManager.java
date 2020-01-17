@@ -22,36 +22,14 @@ public class CharacterManager {
         this.gl = gl;
         this.animations = new HashMap<>();
         texture = new Texture(gl, context, resource_image);
-        readFile(context, resource_text);  // Read txt file to find the coordinate of the animations
-    }
 
-    public void setAnimation(String name)
-    {
-        try
-        {
-            currentAnimation=animations.get(name);
-        }
-        catch (NullPointerException e)
-        {
-            System.out.println(e);
-        }
-    }
 
-    public void draw(){
-        currentAnimation.draw();
-    }
-
-    public void update(long time){
-        currentAnimation.update(time);
-    }
-
-    public void  readFile(Context context, int resourceId) {
         String[] parts;
         String previousName = null;
         Square square;
         int totalWidth = texture.getWidth(), totalHeight = texture.getHeight(), xIni, yIni, texWidth, texHeight;
 
-        BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resourceId)));
+        BufferedReader r = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(resource_text)));
         try
         {
             for (String line; (line = r.readLine()) != null; ) {
@@ -90,6 +68,27 @@ public class CharacterManager {
         catch (IOException e){
         }
     }
+
+    public void setAnimation(String name)
+    {
+        try
+        {
+            currentAnimation=animations.get(name);
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void draw(){
+        currentAnimation.draw();
+    }
+
+    public void update(long time){
+        currentAnimation.update(time);
+    }
+
 
     public void setCurrentFrame(int frame) {
         currentAnimation.setCurrentFrame(frame);
