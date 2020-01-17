@@ -14,8 +14,8 @@ public class MyOpenGLRenderer implements Renderer {
 	private final float GROUND = -1.5f;
 	private Context context;
 	private GL10 gl;
-	private CharacterManager mario, coinHUD, coinJump;
-	private CharacterManager num1, num2, num3;
+	private CharacterManager mario, coinHUD, num1, num2, num3;
+	private Block block;
 
 	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap1_2, tileMap2_2, tileMap3_2, tileMap4_2, tileMap5_2;
 	private boolean isJumping = false, jumpInit = false, jumpTop = false;
@@ -64,6 +64,7 @@ public class MyOpenGLRenderer implements Renderer {
 			mario = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
 			mario.setAnimation("walk");
 
+			// Create coin
 			coinHUD = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);
 			coinHUD.setAnimation("move");
 			coinHUD.setSpeed("move", 150);
@@ -96,6 +97,11 @@ public class MyOpenGLRenderer implements Renderer {
 			spike_top = new Enemy(gl, context, R.drawable.spike_top, R.raw.spike_top);
 		}
 
+		if (block == null && Math.random() > 0.990)
+		{
+			block = new Block(gl, context, R.drawable.foreground_tiles, R.raw.block);
+		}
+
 
 		updateNumCoins();
 		// Clears the screen and depth buffer.
@@ -110,6 +116,7 @@ public class MyOpenGLRenderer implements Renderer {
 		coinGameLogic();
 		mushroomGameLogic();
 		spikeTopGameLogic();
+		blockGameLogic();
 
 		playerJump(40);
 
@@ -210,6 +217,7 @@ public class MyOpenGLRenderer implements Renderer {
 		tileMap5_2.draw();
 		gl.glPopMatrix();
 	}
+
 	public void drawHUD(){
 		// HUD
 		gl.glPushMatrix();
@@ -276,6 +284,14 @@ public class MyOpenGLRenderer implements Renderer {
 				framesLanding = 0;
 				mario.setAnimation("walk");
 			}
+		}
+	}
+
+	public void blockGameLogic()
+	{
+		if (block != null)
+		{
+			block.drawBlock(currentTimeMillis());
 		}
 	}
 
@@ -366,5 +382,7 @@ public class MyOpenGLRenderer implements Renderer {
 
 		}
 	}
+
+
 
 }
