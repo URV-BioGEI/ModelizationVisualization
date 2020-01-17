@@ -48,14 +48,17 @@ public class MyOpenGLRenderer implements Renderer {
 		musicPlayer.PlaySound(context, R.raw.mario_lets_go);
 
 		try {
-			// Create tilemaps
-			tileMap1 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.9f, -20);  // Top sky clouds
-			tileMap1_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.9f, -20 + tileMap1.getTilemapColumns() * 2f);  // Top sky clouds
-
+			// Create scrolling parallax tilemaps
+			tileMap1 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.02f, -20);  // Top sky clouds
+			tileMap1_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap1, 0.02f, -20 + tileMap1.getTilemapColumns() * 2f);  // Top sky clouds
 			tileMap2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap2, 0.03f, -20);  // Bottom sky clouds
+			tileMap2_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap2, 0.03f, -20 + tileMap2.getTilemapColumns() * 2f);  // Bottom sky clouds
 			tileMap3 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap3, 0.1f, -20);  // Back mountains
+			tileMap3_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap3, 0.1f, -20 + tileMap3.getTilemapColumns() * 2f);  // Back mountains
 			tileMap4 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap4, 0.2f, -20);  // front mountains
+			tileMap4_2 = new TileMap(gl, context, R.drawable.background_tiles, R.raw.tilemap4, 0.2f, -20 + tileMap4.getTilemapColumns() * 2f);  // front mountains
 			tileMap5 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20);  // Foreground ground
+			tileMap5_2 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20 + tileMap5.getTilemapColumns() * 2f);  // Foreground ground
 
 			// Create Mario
 			mario = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
@@ -151,32 +154,60 @@ public class MyOpenGLRenderer implements Renderer {
 		}
 	}
 
-	public  void drawGround(){
-		// BACKGROUND
+	private void drawGround(){
+		// Tilemap1
 		gl.glPushMatrix();
 		gl.glTranslatef(0f, 10.0f, -20.0f);
 		tileMap1.draw();
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
+		gl.glTranslatef(0f, 10.0f, -20.0f);
+		tileMap1_2.draw();
+		gl.glPopMatrix();
+
+		// Tilemap2
+		gl.glPushMatrix();
 		gl.glTranslatef(0f, 8.0f, -20.0f);
 		tileMap2.draw();
 		gl.glPopMatrix();
 
+		gl.glPushMatrix();
+		gl.glTranslatef(0f, 8.0f, -20.0f);
+		tileMap2_2.draw();
+		gl.glPopMatrix();
+
+		// Tilemap3
 		gl.glPushMatrix();
 		gl.glTranslatef(0f, 4.0f, -20.0f);
 		tileMap3.draw();
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
+		gl.glTranslatef(0f, 4.0f, -20.0f);
+		tileMap3_2.draw();
+		gl.glPopMatrix();
+
+		// Tilemap4
+		gl.glPushMatrix();
 		gl.glTranslatef(0f, 4.0f, -30.0f);
 		tileMap4.draw();
 		gl.glPopMatrix();
 
-		// FOREGROUND
+		gl.glPushMatrix();
+		gl.glTranslatef(0f, 4.0f, -30.0f);
+		tileMap4_2.draw();
+		gl.glPopMatrix();
+
+		// Tilemap5 (Foreground)
 		gl.glPushMatrix();
 		gl.glTranslatef(0.0f, -7.0f, -60.0f);
 		tileMap5.draw();
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslatef(0.0f, -7.0f, -60.0f);
+		tileMap5_2.draw();
 		gl.glPopMatrix();
 	}
 	public void drawHUD(){

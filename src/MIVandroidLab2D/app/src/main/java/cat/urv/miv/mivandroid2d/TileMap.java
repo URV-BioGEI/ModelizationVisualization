@@ -102,9 +102,9 @@ public class TileMap {
         }
 
         position -= speed;
-        if (position + tilemapColumns * 2f < -20)  // When the tilemap is out of the screen
+        if (position + tilemapColumns * 2f < -24)  // When the tilemap is out of the screen
         {
-            position = position + tilemapColumns * 2f;  // Move 2f * tilemapColumns * 2 to the right so we reach the end of the second tilemap
+            position = position + tilemapColumns * 2f * 2;  // Move 2f * tilemapColumns * 2 to the right so we reach the end of the second tilemap
         }
         gl.glPopMatrix();
     }
