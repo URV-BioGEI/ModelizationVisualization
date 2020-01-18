@@ -80,14 +80,11 @@ public class CharacterManager {
         }
     }
 
-    public void draw(){
-        currentAnimation.draw();
-    }
+    public void draw(){ currentAnimation.draw(); }
 
     public void update(long time){
         currentAnimation.update(time);
     }
-
 
     public void setCurrentFrame(int frame) {
         currentAnimation.setCurrentFrame(frame);
@@ -96,4 +93,6 @@ public class CharacterManager {
     public void setSpeed(String name, float speed) {
         this.animations.get(name).setSpeed(speed);
     }
+
+    public HashMap<String, Animation> getAnimations() { return animations; }
 }

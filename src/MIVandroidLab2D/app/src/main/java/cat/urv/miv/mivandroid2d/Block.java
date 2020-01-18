@@ -5,7 +5,7 @@ import android.content.Context;
 import javax.microedition.khronos.opengles.GL10;
 
 public class Block {
-    private CharacterManager block;
+    private CharacterManager characterManager;
     private GL10 gl;
     private Context context;
     private float position;
@@ -15,19 +15,23 @@ public class Block {
         this.gl = gl;
         this.context = context;
         position = 13;
-        block = new CharacterManager(gl, context, resource_id, resource_id_text);
-        block.setAnimation("idle");
+        characterManager = new CharacterManager(gl, context, resource_id, resource_id_text);
+        characterManager.setAnimation("idle");
     }
 
     public void drawBlock(long time){
         gl.glPushMatrix();
 
-        gl.glTranslatef(position, -2.5f, -35.0f);
+        gl.glTranslatef(position, 3.5f, -35.0f);
 
-        block.draw();
-        block.update(time);
+        characterManager.draw();
+        characterManager.update(time);
         gl.glPopMatrix();
         position -=0.1f;
+    }
+
+    public CharacterManager getCharacterManager() {
+        return characterManager;
     }
 }
 

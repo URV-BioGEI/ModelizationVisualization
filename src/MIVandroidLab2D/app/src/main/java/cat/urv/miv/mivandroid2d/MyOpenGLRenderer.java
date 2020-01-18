@@ -11,21 +11,24 @@ import static java.lang.System.currentTimeMillis;
 
 public class MyOpenGLRenderer implements Renderer {
 
-	private final float GROUND = -1.5f;
 	private Context context;
 	private GL10 gl;
-	private CharacterManager mario, coinHUD, num1, num2, num3;
-	private Block block;
 
+	private final float GROUND = -1.5f;
+
+	private Enemy goomba = null, koopa = null;
+	private CharacterManager mario, num1, num2, num3;
+	private Block block = null;
 	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap1_2, tileMap2_2, tileMap3_2, tileMap4_2, tileMap5_2;
+	private Coin coin = null;
+	private MusicPlayer musicPlayer;
+	private LevelHUD levelHUD;
+
 	private boolean isJumping = false, jumpInit = false, jumpTop = false;
 	private int framesJumping = 0, framesLanding = 0;
 	private float actualPositionY = GROUND, positionX = -5.0f;
 	private int numCoins = 0;
-	private Coin coin = null;
-	private Enemy mushroom = null, spike_top = null;
-	private boolean isHitted = false, isHitted2 = false, soundCoinPlayed=false, soundkickPlayed=false;
-	private MusicPlayer musicPlayer;
+	private boolean isHitted = false, soundCoinPlayed=false, soundkickPlayed=false;
 
 	public MyOpenGLRenderer(Context context){
 		this.context = context;
@@ -64,17 +67,8 @@ public class MyOpenGLRenderer implements Renderer {
 			mario = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
 			mario.setAnimation("walk");
 
-			// Create coin
-			coinHUD = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);
-			coinHUD.setAnimation("move");
-			coinHUD.setSpeed("move", 150);
-
-			num1 = new CharacterManager(gl, context, R.drawable.numeros, R.raw.numeros);
-			num1.setAnimation("num");
-			num2 = new CharacterManager(gl, context, R.drawable.numeros, R.raw.numeros);
-			num2.setAnimation("num");
-			num3 = new CharacterManager(gl, context, R.drawable.numeros, R.raw.numeros);
-			num3.setAnimation("num");
+			// Create Level HUD
+			levelHUD = new LevelHUD(gl, context);
 
 		}
 		catch (Exception e){
@@ -86,24 +80,6 @@ public class MyOpenGLRenderer implements Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 
-		if(coin == null && Math.random() > 0.990){
-			coin = new Coin(gl, context);
-		}
-
-		if(mushroom == null && Math.random() > 0.992){
-			mushroom = new Enemy(gl, context, R.drawable.mushroom, R.raw.mushroom);
-		}
-		else if(spike_top == null && Math.random() > 0.997){
-			spike_top = new Enemy(gl, context, R.drawable.spike_top, R.raw.spike_top);
-		}
-
-		if (block == null && Math.random() > 0.990)
-		{
-			block = new Block(gl, context, R.drawable.foreground_tiles, R.raw.block);
-		}
-
-
-		updateNumCoins();
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		
@@ -114,13 +90,13 @@ public class MyOpenGLRenderer implements Renderer {
 		drawPlayer();
 
 		coinGameLogic();
-		mushroomGameLogic();
-		spikeTopGameLogic();
+		goombaGameLogic();
+		koopaGameLogic();
 		blockGameLogic();
 
 		playerJump(40);
 
-		drawHUD();
+		//drawHUD();
 
 	}
 
@@ -134,12 +110,11 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glLoadIdentity();
 		// Calculate the aspect ratio of the window
 		GLU.gluPerspective(gl, 60.0f, (float) width / (float) height, 0.1f, 100.0f);
-		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 	}
 
-	public void updateNumCoins() {
+	/*public void updateNumCoins() {
 		int digit;
 
 		if(numCoins<0) numCoins = 0;
@@ -159,7 +134,7 @@ public class MyOpenGLRenderer implements Renderer {
 			num2.setCurrentFrame(digit%10);
 			num1.setCurrentFrame(digit/10);
 		}
-	}
+	}*/
 
 	private void drawGround(){
 		// Tilemap1
@@ -218,7 +193,7 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glPopMatrix();
 	}
 
-	public void drawHUD(){
+	/*public void drawHUD(){
 		// HUD
 		gl.glPushMatrix();
 		gl.glTranslatef(-7f, 18f, -35.0f);
@@ -240,7 +215,7 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glTranslatef(-1f, 18f, -35.0f);
 		num3.draw();
 		gl.glPopMatrix();
-	}
+	}*/
 
 	public void drawPlayer(){
 		// PLAYER
@@ -289,92 +264,133 @@ public class MyOpenGLRenderer implements Renderer {
 
 	public void blockGameLogic()
 	{
+		if (block == null && Math.random() > 0.990)
+		{
+			block = new Block(gl, context, R.drawable.foreground_tiles, R.raw.block);
+			block.getCharacterManager().getAnimations().get("idle").setSpeed(60);
+		}
+
 		if (block != null)
 		{
 			block.drawBlock(currentTimeMillis());
 		}
 	}
 
-	public  void mushroomGameLogic(){
-		if(mushroom != null){
-			mushroom.drawEnemy(currentTimeMillis());
-			if(mushroom.getPosition()<= positionX+0.5 && mushroom.getPosition()>= positionX - 1){
-				if(actualPositionY >= GROUND && actualPositionY <= GROUND + 20*0.1f && !jumpTop && !mushroom.getIsDead()){
-					if(!isHitted){
+	public  void koopaGameLogic(){
+		if (koopa == null && Math.random() > 0.993)
+			koopa = new Enemy(gl, context, R.drawable.koopa, R.raw.koopa);
+		if (koopa != null)
+		{
+			koopa.drawEnemy(currentTimeMillis());
+			if (koopa.getPosition() <= positionX + 0.5 && koopa.getPosition() >= positionX - 1)
+			{
+				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f && !jumpTop && !koopa.getIsDead())
+				{
+					if (!isHitted)
+					{
 						numCoins--;
 						musicPlayer.PlaySound(context, R.raw.mario_hurt);
-						isHitted=true;
+						isHitted = true;
 					}
 				}
-				else if(actualPositionY >= GROUND + 15*0.1f && actualPositionY <= GROUND + 20*0.1f && jumpTop){
-					mushroom.setAnimation("die");
-					mushroom.setIsDead(true);
-
-
-					if(!soundkickPlayed){
+				else if (actualPositionY >= GROUND + 15 * 0.1f && actualPositionY <= GROUND + 20 * 0.1f && jumpTop)
+				{
+					koopa.setAnimation("die");
+					koopa.setIsDead(true);
+					if (!soundkickPlayed)
+					{
 						musicPlayer.PlaySound(context, R.raw.kick);
 						soundkickPlayed = true;
 					}
-
 					isJumping();
 					jumpInit = false;
-					jumpTop=false;
-
+					jumpTop = false;
 					playerJump(20);
 				}
 			}
-			else if(mushroom.getPosition() <= -15) {
-				mushroom = null;
+			else if (koopa.getPosition() <= -15)
+			{
+				koopa = null;
 				soundkickPlayed = false;
 			}
-			else{
+			else
+			{
+				isHitted = false;
+			}
+		}
+	}
+
+	public void goombaGameLogic(){
+		if (goomba == null && Math.random() > 0.999)
+			goomba = new Enemy(gl, context, R.drawable.goomba, R.raw.goomba);
+		if (goomba != null)
+		{
+			goomba.drawEnemy(currentTimeMillis());
+			if (goomba.getPosition() <= positionX + 0.5 && goomba.getPosition() >= positionX - 1)
+			{
+				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f && !jumpTop && !goomba.getIsDead())
+				{
+					if (!isHitted)
+					{
+						numCoins--;
+						musicPlayer.PlaySound(context, R.raw.mario_hurt);
+						isHitted = true;
+					}
+				}
+				else if (actualPositionY >= GROUND + 15 * 0.1f && actualPositionY <= GROUND + 20 * 0.1f && jumpTop)
+				{
+					goomba.setAnimation("die");
+					goomba.setIsDead(true);
+					if (!soundkickPlayed)
+					{
+						musicPlayer.PlaySound(context, R.raw.kick);
+						soundkickPlayed = true;
+					}
+					isJumping();
+					jumpInit = false;
+					jumpTop=false;
+					playerJump(20);
+				}
+			}
+			else if (goomba.getPosition() <= -15)
+			{
+				goomba = null;
+				soundkickPlayed = false;
+			}
+			else
+			{
 				isHitted=false;
 			}
 		}
 	}
 
-	public  void spikeTopGameLogic(){
-		if(spike_top != null){
-			spike_top.drawEnemy(currentTimeMillis());
-			if(spike_top.getPosition()<= positionX&& spike_top.getPosition()>= positionX - 2){
-				if(actualPositionY >= GROUND && actualPositionY <= GROUND + 16*0.1f){
-					if(!isHitted2){
-						numCoins-=3;
-						musicPlayer.PlaySound(context, R.raw.mario_hurt);
-						isHitted2 = true;
-					}
-				}
-			}
-			else if(spike_top.getPosition() <= -15) {
-				spike_top = null;
-			}
-			else{
-				isHitted2=false;
-			}
-		}
-	}
-
-
 	public  void coinGameLogic(){
-		if(coin != null){
+		if (coin == null && Math.random() > 0.990)
+		{
+			coin = new Coin(gl, context);
+		}
+		if (coin != null)
+		{
 			coin.drawCoin(currentTimeMillis());
-			if(coin.getPosition()<= positionX && coin.getPosition()>= positionX - 2){
-				if(actualPositionY >= GROUND && actualPositionY <= GROUND + 20*0.1f){
-					if(!soundCoinPlayed)
+			if (coin.getPosition() <= positionX && coin.getPosition() >= positionX - 2)
+			{
+				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f){
+					if (!soundCoinPlayed)
 					{
 						musicPlayer.PlaySound(context, R.raw.coin_sound);
 						soundCoinPlayed = true;
 					}
-
 					coin.isCaught();
 				}
 			}
-			else if(coin.getPosition() <= -15) {
+			else if (coin.getPosition() <= -15)
+			{
 				coin = null;
-				soundCoinPlayed=false;
+				soundCoinPlayed = false;
 			}
 
-			if( coin != null && coin.getIsCaught() && coin.isDestroyable()){
+			if (coin != null && coin.getIsCaught() && coin.isDestroyable())
+			{
 				numCoins++;
 				coin = null;
 				soundCoinPlayed=false;

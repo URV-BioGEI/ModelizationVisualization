@@ -8,29 +8,29 @@ import javax.microedition.khronos.opengles.GL10;
  * Class to manage the collection of coins and its gam logic
  */
 public class Coin {
-    private CharacterManager coin;  // Character manager of the coin
+    private CharacterManager characterManager;  // Character manager of the characterManager
     private GL10 gl;
     private Context context;
 
     // Coin game logic
     private float
-            position,  // current position of the coin
-            upPosition = -2.5f;  // Position to move when the coin is caught
-    private int upFrames = 0;  // Counter to know how many frames the coin has been in the air when caught
+            positionX,  // current position of the characterManager
+            upPosition = -2.5f;  // Position to move when the characterManager is caught
+    private int upFrames = 0;  // Counter to know how many frames the characterManager has been in the air when caught
     private boolean
             isCaught = false,  // Is the coin already caught? so we start playing the upward animation
-            destroyable = false;  // true when we can delete the coin from the scene
+            destroyable = false;  // true when we can delete the characterManager from the scene
 
     public Coin(GL10 gl, Context context){
         this.gl = gl;
         this.context = context;
 
-        position = 13;
-        coin = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);  // create new character manager
+        positionX = 13;
+        characterManager = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);  // create new character manager
 
-        // When created a new coin set moving animation of 150 speed
-        coin.setAnimation("move");
-        coin.setSpeed("move", 150);
+        // When created a new characterManager set moving animation of 150 speed
+        characterManager.setAnimation("move");
+        characterManager.setSpeed("move", 150);
     }
 
     public void drawCoin(long time){
@@ -38,22 +38,21 @@ public class Coin {
 
         if (isCaught)
         {
-            upPosition += 0.3f;  // If is caught move the coin upwards
+            upPosition += 0.3f;  // If is caught move the characterManager upwards
             upFrames++;  // count frames in the air
+            if (upFrames == 20) destroyable = true;  // When the characterManager reaches maximum position is destroyed
         }
-        else position -= 0.1f;
+        else positionX -= 0.1f;  // else we move the characterManager forward
 
-        if (upFrames == 20) destroyable = true;  // When the coin reaches maximum position is destroyed
-
-        gl.glTranslatef(position, upPosition, -40.0f);
-        coin.draw();
-        coin.update(time);
+        gl.glTranslatef(positionX, upPosition, -40.0f);
+        characterManager.draw();
+        characterManager.update(time);
         gl.glPopMatrix();
 
     }
 
     public float getPosition() {
-        return position;
+        return positionX;
     }
 
     public void isCaught() {
@@ -66,5 +65,17 @@ public class Coin {
 
     public boolean getIsCaught(){
         return isCaught;
+    }
+
+    public void setSpeed(float speed)
+    {
+        for (Animation animation: characterManager.getAnimations().values())
+        {
+            animation.setSpeed(speed);
+        }
+    }
+
+    public CharacterManager getCharacterManager() {
+        return characterManager;
     }
 }

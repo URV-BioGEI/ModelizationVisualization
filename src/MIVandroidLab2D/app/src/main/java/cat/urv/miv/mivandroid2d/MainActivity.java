@@ -37,9 +37,6 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        float x = e.getX();
-        float y = e.getY();
-        //System.out.println(x + " " + y);
         if (e.getAction() == MotionEvent.ACTION_DOWN)
         {
 
