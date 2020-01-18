@@ -7,6 +7,8 @@ import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
 
+import java.util.logging.Level;
+
 import static java.lang.System.currentTimeMillis;
 
 public class MyOpenGLRenderer implements Renderer {
@@ -45,9 +47,8 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glEnable(gl.GL_BLEND);
 		gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA);
 
-		// Create Music Player
+		// Create Music Player and play init sound
 		musicPlayer = new MusicPlayer();
-		// Play init sound
 		musicPlayer.PlaySound(context, R.raw.mario_lets_go);
 
 		try {
@@ -93,48 +94,10 @@ public class MyOpenGLRenderer implements Renderer {
 		goombaGameLogic();
 		koopaGameLogic();
 		blockGameLogic();
+		levelHUD.draw(currentTimeMillis());
 
 		playerJump(40);
-
-		//drawHUD();
-
 	}
-
-	@Override
-	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		// Define the Viewport
-		gl.glViewport(0, 0, width, height);
-		// Select the projection matrix
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		// Reset the projection matrix
-		gl.glLoadIdentity();
-		// Calculate the aspect ratio of the window
-		GLU.gluPerspective(gl, 60.0f, (float) width / (float) height, 0.1f, 100.0f);
-		// Select the modelview matrix
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-	}
-
-	/*public void updateNumCoins() {
-		int digit;
-
-		if(numCoins<0) numCoins = 0;
-		else if(numCoins>999) numCoins = 999;
-
-		num1.setCurrentFrame(0);
-		num2.setCurrentFrame(0);
-
-		if(numCoins<10) num3.setCurrentFrame(numCoins);
-		else if (numCoins<100) {
-			num3.setCurrentFrame(numCoins%10);
-			num2.setCurrentFrame(numCoins/10);
-		}
-		else{
-			num3.setCurrentFrame(numCoins%10);
-			digit = numCoins/10;
-			num2.setCurrentFrame(digit%10);
-			num1.setCurrentFrame(digit/10);
-		}
-	}*/
 
 	private void drawGround(){
 		// Tilemap1
@@ -192,30 +155,6 @@ public class MyOpenGLRenderer implements Renderer {
 		tileMap5_2.draw();
 		gl.glPopMatrix();
 	}
-
-	/*public void drawHUD(){
-		// HUD
-		gl.glPushMatrix();
-		gl.glTranslatef(-7f, 18f, -35.0f);
-		coinHUD.draw();
-		coinHUD.update(currentTimeMillis());
-		gl.glPopMatrix();
-
-		gl.glPushMatrix();
-		gl.glTranslatef(-5f, 18f, -35.0f);
-		num1.draw();
-		gl.glPopMatrix();
-
-		gl.glPushMatrix();
-		gl.glTranslatef(-3f, 18f, -35.0f);
-		num2.draw();
-		gl.glPopMatrix();
-
-		gl.glPushMatrix();
-		gl.glTranslatef(-1f, 18f, -35.0f);
-		num3.draw();
-		gl.glPopMatrix();
-	}*/
 
 	public void drawPlayer(){
 		// PLAYER
@@ -399,6 +338,18 @@ public class MyOpenGLRenderer implements Renderer {
 		}
 	}
 
-
+	@Override
+	public void onSurfaceChanged(GL10 gl, int width, int height) {
+		// Define the Viewport
+		gl.glViewport(0, 0, width, height);
+		// Select the projection matrix
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		// Reset the projection matrix
+		gl.glLoadIdentity();
+		// Calculate the aspect ratio of the window
+		GLU.gluPerspective(gl, 60.0f, (float) width / (float) height, 0.1f, 100.0f);
+		// Select the modelview matrix
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+	}
 
 }
