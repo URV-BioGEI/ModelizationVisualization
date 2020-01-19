@@ -60,11 +60,21 @@ public class MyOpenGLRenderer implements Renderer {
 			tileMap5 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20);  // Foreground ground
 			tileMap5_2 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20 + tileMap5.getTilemapColumns() * 2f);  // Foreground ground
 
-			// Create Mario
-			player = new Player(gl, context, musicPlayer);
+
 
 			// Create Level HUD
 			levelHUD = new LevelHUD(gl, context);
+
+			// Create enemy
+			goomba = new Goomba(gl, context);
+
+			// Create block
+			block = new Block(gl, context);
+
+			// Create Mario
+			player = new Player(gl, context, musicPlayer);
+			player.setGoomba(goomba);
+			player.setBlock(block);
 
 		}
 		catch (Exception e){
@@ -84,7 +94,8 @@ public class MyOpenGLRenderer implements Renderer {
 
 		drawGround();
 		player.draw(currentTime);
-		//goomba.drawEnemy(currentTime);
+		goomba.draw(currentTime);
+		block.draw(currentTime);
 
 		//coinGameLogic();
 		//koopaGameLogic();
@@ -213,7 +224,6 @@ public class MyOpenGLRenderer implements Renderer {
 
 	/*public void goombaGameLogic(){
 		if (goomba == null && Math.random() > 0.999)
-			goomba = new Goomba(gl, context, R.drawable.goomba, R.raw.goomba);
 		if (goomba != null)
 		{
 			goomba.drawEnemy(currentTimeMillis());

@@ -11,15 +11,15 @@ public class Block {
     private float position;
     private boolean isSmashed = false;
 
-    public Block(GL10 gl, Context context, int resource_id, int resource_id_text){
+    public Block(GL10 gl, Context context){
         this.gl = gl;
         this.context = context;
-        position = 13;
-        characterManager = new CharacterManager(gl, context, resource_id, resource_id_text);
+        position = 50;
+        characterManager = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.block);
         characterManager.setAnimation("idle");
     }
 
-    public void drawBlock(long time){
+    public void draw(long time){
         gl.glPushMatrix();
 
         gl.glTranslatef(position, 3.5f, -35.0f);
