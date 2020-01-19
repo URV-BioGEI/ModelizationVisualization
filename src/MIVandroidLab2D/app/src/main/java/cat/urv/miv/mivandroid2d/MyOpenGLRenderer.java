@@ -71,10 +71,14 @@ public class MyOpenGLRenderer implements Renderer {
 			// Create block
 			block = new Block(gl, context);
 
+			// Create coin
+			coin = new Coin(gl, context);
+
 			// Create Mario
 			player = new Player(gl, context, musicPlayer);
 			player.setGoomba(goomba);
 			player.setBlock(block);
+			//player.setCoin(coin);
 
 		}
 		catch (Exception e){
@@ -96,6 +100,7 @@ public class MyOpenGLRenderer implements Renderer {
 		player.draw(currentTime);
 		goomba.draw(currentTime);
 		block.draw(currentTime);
+		coin.draw(currentTime);
 
 		//coinGameLogic();
 		//koopaGameLogic();
@@ -313,9 +318,9 @@ public class MyOpenGLRenderer implements Renderer {
 	}
 
 	// Called by an Touch event on main activity
-	public void isJumping()
+	public void isJumping(boolean param)
 	{
-		player.isJumping();
+		player.isJumping(param);
 	}
 
 }

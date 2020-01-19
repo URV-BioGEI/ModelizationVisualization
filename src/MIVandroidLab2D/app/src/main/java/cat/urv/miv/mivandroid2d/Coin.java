@@ -33,7 +33,7 @@ public class Coin {
         characterManager.setSpeed("move", 150);
     }
 
-    public void drawCoin(long time){
+    public void draw(long time){
         gl.glPushMatrix();
 
         if (isCaught)

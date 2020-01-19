@@ -49,7 +49,7 @@ public class Goomba {
 
         if (currentDieFrames > DIE_FRAMES || position < -20f)
         {
-            position += 100f;
+            position += 50f;
             characterManager.setAnimation("walk");
             isDead = false;
             currentDieFrames = 0;

@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         if (e.getAction() == MotionEvent.ACTION_DOWN)
         {
 
-            glRenderer.isJumping();
+            glRenderer.isJumping(true);
 
         }
         return true;

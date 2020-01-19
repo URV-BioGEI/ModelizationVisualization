@@ -24,7 +24,6 @@ public class Player {
             isHitted = false,
             soundkickPlayed=false;
 
-    private int framesJumping = 0, framesLanding = 0;
     private float positionY = POSITION_Y_GROUND, jumpSpeed = INITIAL_JUMP_SPEED;
     private long lastFrameTime;
 
@@ -36,6 +35,7 @@ public class Player {
 
         characterManager = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
         characterManager.setAnimation("walk");
+        characterManager.setSpeed("walk", 15);
 
     }
 
@@ -69,16 +69,16 @@ public class Player {
                 musicPlayer.PlaySound(context, R.raw.nsmb_jump);  // I fem el so
                 jumpStarted = true;
             }
-            if (positionY < POSITION_Y_GROUND)  // Si detectem final de la parábola
+            if (positionY <= POSITION_Y_GROUND)  // Si detectem final de la parábola
             {
                 positionY = POSITION_Y_GROUND;  // Corregim trajectoria
                 isJumping = false;  // I deixem de saltar
                 jumpStarted = false;  // Ressetegem salt
                 jumpSpeed = INITIAL_JUMP_SPEED;  // I ressetetem salt inicial
             }
-            else if (positionY > POSITION_Y_GROUND)
+            else if (positionY > POSITION_Y_GROUND)  // Si estem a l'aire
             {
-                if (goomba.getPosition() <= POSITION_X + 0.5 && goomba.getPosition() >= POSITION_X - 1)  // Colisió en l'eix X
+                if (goomba.getPosition() <= POSITION_X && goomba.getPosition() + 2 >= POSITION_X)  // Colisió en l'eix X
                 {
                     if (positionY <= POSITION_Y_GROUND + 1.5f && !goomba.getIsDead())  // Si colisionem de costat amb el goomba mentre saltem
                     {
@@ -88,70 +88,51 @@ public class Player {
                             isHitted = true;
                         }
                     }
-                    else if (positionY <= POSITION_Y_GROUND + 2f)
+                    else if (positionY <= POSITION_Y_GROUND + 2f)  // Si aixafem al goomba
                     {
                         goomba.setIsDead(true);
-                        if (!soundkickPlayed)
+                        if (!soundkickPlayed)  // Play sound
                         {
                             musicPlayer.PlaySound(context, R.raw.kick);
                             soundkickPlayed = true;
                         }
 
-                        //playerJump(20);
                     }
                 }
-                else if (goomba.getPosition() <= -15)
+                if (block.getPosition() <= POSITION_X && block.getPosition() + 2 >= POSITION_X)  // Colisió en l'eix x amb un bloc
                 {
-                    soundkickPlayed = false;
-                }
-                else
-                {
-                    isHitted = false;
+                    if (positionY >= 3.5 - 2 && positionY < 3.5 - 1.5)
+                    {
+                        positionY = 1.5f;
+                        jumpSpeed = 0;
+                        block.setSmashed(true);
+                        musicPlayer.PlaySound(context, R.raw.bounce);  // I fem el so
+                    }
+
                 }
             }
         }
         else  // If is not jumping is walking
         {
             characterManager.setAnimation("walk");
+            if (goomba.getPosition() <= POSITION_X + 0.5 && goomba.getPosition() >= POSITION_X - 1)  // Colisió en l'eix X
+            {
+                if (!isHitted && !soundkickPlayed)
+                {
+                    //musicPlayer.PlaySound(context, R.raw.mario_hurt);
+                    isHitted = true;
+                }
+            }
+            characterManager.setAnimation("walk");
         }
-        lastFrameTime = time;  // Update frame time
-    /*public void goombaGameLogic(){
-
-        if (goomba != null)
+        if (goomba.getPosition() > 15)  // Quan el goomba torna a estar fora de la pantalla recarreguem els sons i animacions
         {
-            goomba.drawEnemy(currentTimeMillis());
-            if (goomba.getPosition() <= positionX + 0.5 && goomba.getPosition() >= positionX - 1)
-            {
-                if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f && !jumpTop && !goomba.getIsDead())
-                {
-
-                }
-                else if (actualPositionY >= GROUND + 15 * 0.1f && actualPositionY <= GROUND + 20 * 0.1f && jumpTop)
-                {
-                    goomba.setAnimation("die");
-                    goomba.setIsDead(true);
-                    if (!soundkickPlayed)
-                    {
-                        musicPlayer.PlaySound(context, R.raw.kick);
-                        soundkickPlayed = true;
-                    }
-                    isJumping();
-                    jumpInit = false;
-                    jumpTop=false;
-                    playerJump(20);
-                }
-            }
-            else if (goomba.getPosition() <= -15)
-            {
-                goomba = null;
-                soundkickPlayed = false;
-            }
-            else
-            {
-                isHitted=false;
-            }
+            soundkickPlayed = false;
+            isHitted = false;
         }
-    }*/
+
+        lastFrameTime = time;  // Update frame time
+
         gl.glPushMatrix();
 
         gl.glTranslatef(POSITION_X, positionY, -30.0f);
@@ -164,8 +145,8 @@ public class Player {
     }
 
     // Set by a trigger on MainActivity
-    public void isJumping(){
-        this.isJumping = true;
+    public void isJumping(boolean param){
+        this.isJumping = param;
     }
 
     public void setGoomba(Goomba goomba) {
