@@ -7,8 +7,6 @@ import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
 
-import java.util.logging.Level;
-
 import static java.lang.System.currentTimeMillis;
 
 public class MyOpenGLRenderer implements Renderer {
@@ -16,21 +14,19 @@ public class MyOpenGLRenderer implements Renderer {
 	private Context context;
 	private GL10 gl;
 
-	private final float GROUND = -1.5f;
-
-	private Enemy goomba = null, koopa = null;
+	private Goomba goomba = null, koopa = null;
 	private CharacterManager mario, num1, num2, num3;
 	private Block block = null;
 	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap1_2, tileMap2_2, tileMap3_2, tileMap4_2, tileMap5_2;
 	private Coin coin = null;
 	private MusicPlayer musicPlayer;
 	private LevelHUD levelHUD;
+	private Player player;
 
-	private boolean isJumping = false, jumpInit = false, jumpTop = false;
-	private int framesJumping = 0, framesLanding = 0;
-	private float actualPositionY = GROUND, positionX = -5.0f;
-	private int numCoins = 0;
-	private boolean isHitted = false, soundCoinPlayed=false, soundkickPlayed=false;
+	private boolean soundCoinPlayed = false;
+
+
+
 
 	public MyOpenGLRenderer(Context context){
 		this.context = context;
@@ -65,8 +61,7 @@ public class MyOpenGLRenderer implements Renderer {
 			tileMap5_2 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20 + tileMap5.getTilemapColumns() * 2f);  // Foreground ground
 
 			// Create Mario
-			mario = new CharacterManager(gl, context, R.drawable.mario, R.raw.mario);
-			mario.setAnimation("walk");
+			player = new Player(gl, context, musicPlayer);
 
 			// Create Level HUD
 			levelHUD = new LevelHUD(gl, context);
@@ -80,7 +75,7 @@ public class MyOpenGLRenderer implements Renderer {
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
-
+		long currentTime = currentTimeMillis();
 		// Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		
@@ -88,15 +83,14 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glPushMatrix();
 
 		drawGround();
-		drawPlayer();
+		player.draw(currentTime);
+		//goomba.drawEnemy(currentTime);
 
-		coinGameLogic();
-		goombaGameLogic();
-		koopaGameLogic();
-		blockGameLogic();
-		levelHUD.draw(currentTimeMillis());
+		//coinGameLogic();
+		//koopaGameLogic();
+		//blockGameLogic();
+		levelHUD.draw(currentTime);
 
-		playerJump(40);
 	}
 
 	private void drawGround(){
@@ -156,51 +150,9 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glPopMatrix();
 	}
 
-	public void drawPlayer(){
-		// PLAYER
-		gl.glPushMatrix();
-		gl.glTranslatef(positionX, actualPositionY, -30.0f);
-		gl.glScalef(1.0f,1.5f, 1.0f);
-		gl.glRotatef(180, 0,1,0);
-		mario.draw();
-		mario.update(currentTimeMillis());
-		gl.glPopMatrix();
-	}
 
-	public void isJumping(){
-		this.isJumping = true;
-	}
 
-	public void playerJump(int jumpForce){
-		if(isJumping && !jumpInit) {
-			if(jumpForce==40) musicPlayer.PlaySound(context, R.raw.nsmb_jump);
-			//framesJumping = 0;
-			jumpInit = true;
-			mario.setAnimation("jump");
-		}
-		else if(jumpInit && !jumpTop ) {
-			if(framesJumping < jumpForce){
-				actualPositionY +=0.1f;
-				framesJumping++;
-			}
-			else jumpTop = true;
-		}
-		else if(jumpInit && jumpTop) {
-			if(framesLanding != framesJumping){
-				actualPositionY -=0.1f;
-				framesLanding++;
-			}
-			else {
-				jumpTop = false;
-				jumpInit = false;
-				isJumping = false;
-				framesJumping = 0;
-				framesLanding = 0;
-				mario.setAnimation("walk");
-			}
-		}
-	}
-
+/*
 	public void blockGameLogic()
 	{
 		if (block == null && Math.random() > 0.990)
@@ -213,11 +165,11 @@ public class MyOpenGLRenderer implements Renderer {
 		{
 			block.drawBlock(currentTimeMillis());
 		}
-	}
+	}*/
 
-	public  void koopaGameLogic(){
+	/*public void koopaGameLogic(){
 		if (koopa == null && Math.random() > 0.993)
-			koopa = new Enemy(gl, context, R.drawable.koopa, R.raw.koopa);
+			koopa = new Goomba(gl, context, R.drawable.koopa, R.raw.koopa);
 		if (koopa != null)
 		{
 			koopa.drawEnemy(currentTimeMillis());
@@ -257,11 +209,11 @@ public class MyOpenGLRenderer implements Renderer {
 				isHitted = false;
 			}
 		}
-	}
+	}*/
 
-	public void goombaGameLogic(){
+	/*public void goombaGameLogic(){
 		if (goomba == null && Math.random() > 0.999)
-			goomba = new Enemy(gl, context, R.drawable.goomba, R.raw.goomba);
+			goomba = new Goomba(gl, context, R.drawable.goomba, R.raw.goomba);
 		if (goomba != null)
 		{
 			goomba.drawEnemy(currentTimeMillis());
@@ -271,7 +223,6 @@ public class MyOpenGLRenderer implements Renderer {
 				{
 					if (!isHitted)
 					{
-						numCoins--;
 						musicPlayer.PlaySound(context, R.raw.mario_hurt);
 						isHitted = true;
 					}
@@ -301,9 +252,9 @@ public class MyOpenGLRenderer implements Renderer {
 				isHitted=false;
 			}
 		}
-	}
+	}*/
 
-	public  void coinGameLogic(){
+	/*public  void coinGameLogic(){
 		if (coin == null && Math.random() > 0.990)
 		{
 			coin = new Coin(gl, context);
@@ -330,13 +281,12 @@ public class MyOpenGLRenderer implements Renderer {
 
 			if (coin != null && coin.getIsCaught() && coin.isDestroyable())
 			{
-				numCoins++;
 				coin = null;
 				soundCoinPlayed=false;
 			}
 
 		}
-	}
+	}*/
 
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -350,6 +300,12 @@ public class MyOpenGLRenderer implements Renderer {
 		GLU.gluPerspective(gl, 60.0f, (float) width / (float) height, 0.1f, 100.0f);
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
+	}
+
+	// Called by an Touch event on main activity
+	public void isJumping()
+	{
+		player.isJumping();
 	}
 
 }

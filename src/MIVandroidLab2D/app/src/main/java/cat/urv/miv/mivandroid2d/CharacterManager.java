@@ -72,7 +72,7 @@ public class CharacterManager {
     {
         try
         {
-            currentAnimation=animations.get(name);
+            currentAnimation = animations.get(name);
         }
         catch (NullPointerException e)
         {
