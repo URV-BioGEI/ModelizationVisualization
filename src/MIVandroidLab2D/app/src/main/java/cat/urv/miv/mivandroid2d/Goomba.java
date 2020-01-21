@@ -10,7 +10,7 @@ public class Goomba {
     private CharacterManager characterManager;
     private GL10 gl;
     private Context context;
-    private float position;
+    private float position, displacement = 0.15f;
     private MusicPlayer musicPlayer;
 
     private boolean isDead = false;
@@ -57,7 +57,7 @@ public class Goomba {
         characterManager.draw();
         characterManager.update(time);
         gl.glPopMatrix();
-        position -= 0.1f;
+        position -= displacement;
     }
 
     public float getPosition() {
@@ -74,5 +74,9 @@ public class Goomba {
 
     public boolean getIsDead() {
         return this.isDead;
+    }
+
+    public void setDisplacement(float displacement) {
+        this.displacement = displacement;
     }
 }

@@ -40,8 +40,12 @@ public class MainActivity extends Activity {
         if (e.getAction() == MotionEvent.ACTION_DOWN)
         {
 
-            glRenderer.isJumping(true);
+            glRenderer.isTouching(true);
 
+        }
+        else if (e.getAction() == MotionEvent.ACTION_UP)
+        {
+            glRenderer.isTouching(false);
         }
         return true;
     }

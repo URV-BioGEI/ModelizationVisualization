@@ -18,10 +18,11 @@ public class MyOpenGLRenderer implements Renderer {
 	private CharacterManager mario, num1, num2, num3;
 	private Block block = null;
 	private TileMap tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap1_2, tileMap2_2, tileMap3_2, tileMap4_2, tileMap5_2;
-	private Coin coin = null;
+	private Coin coinFloor = null, coinAir = null;
 	private MusicPlayer musicPlayer;
 	private LevelHUD levelHUD;
 	private Player player;
+	private Lifebar lifebar;
 
 	private boolean soundCoinPlayed = false;
 
@@ -60,8 +61,6 @@ public class MyOpenGLRenderer implements Renderer {
 			tileMap5 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20);  // Foreground ground
 			tileMap5_2 = new TileMap(gl, context, R.drawable.foreground_tiles, R.raw.tilemap5, 0.5f, -20 + tileMap5.getTilemapColumns() * 2f);  // Foreground ground
 
-
-
 			// Create Level HUD
 			levelHUD = new LevelHUD(gl, context);
 
@@ -71,14 +70,24 @@ public class MyOpenGLRenderer implements Renderer {
 			// Create block
 			block = new Block(gl, context);
 
-			// Create coin
-			coin = new Coin(gl, context);
+			// Create coins
+			coinFloor = new Coin(gl, context);
+			coinAir = new Coin(gl, context);
+			coinAir.setPositionYInit(2.5f);
+
+			// Create Lifebar
+			lifebar = new Lifebar(gl, context);
 
 			// Create Mario
 			player = new Player(gl, context, musicPlayer);
 			player.setGoomba(goomba);
 			player.setBlock(block);
-			//player.setCoin(coin);
+			player.setLifebar(lifebar);
+			player.setCoinFloor(coinFloor);
+			player.setCoinAir(coinAir);
+			player.setLevelHUD(levelHUD);
+
+
 
 		}
 		catch (Exception e){
@@ -96,15 +105,15 @@ public class MyOpenGLRenderer implements Renderer {
 		gl.glLoadIdentity();
 		gl.glPushMatrix();
 
+
 		drawGround();
 		player.draw(currentTime);
 		goomba.draw(currentTime);
 		block.draw(currentTime);
-		coin.draw(currentTime);
-
-		//coinGameLogic();
-		//koopaGameLogic();
-		//blockGameLogic();
+		coinFloor.draw(currentTime);
+		coinAir.draw(currentTime);
+		coinAir.setPositionYInit(5f);
+		lifebar.draw(currentTime);
 		levelHUD.draw(currentTime);
 
 	}
@@ -189,7 +198,7 @@ public class MyOpenGLRenderer implements Renderer {
 		if (koopa != null)
 		{
 			koopa.drawEnemy(currentTimeMillis());
-			if (koopa.getPosition() <= positionX + 0.5 && koopa.getPosition() >= positionX - 1)
+			if (koopa.getPositionX() <= positionX + 0.5 && koopa.getPositionX() >= positionX - 1)
 			{
 				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f && !jumpTop && !koopa.getIsDead())
 				{
@@ -215,7 +224,7 @@ public class MyOpenGLRenderer implements Renderer {
 					playerJump(20);
 				}
 			}
-			else if (koopa.getPosition() <= -15)
+			else if (koopa.getPositionX() <= -15)
 			{
 				koopa = null;
 				soundkickPlayed = false;
@@ -232,7 +241,7 @@ public class MyOpenGLRenderer implements Renderer {
 		if (goomba != null)
 		{
 			goomba.drawEnemy(currentTimeMillis());
-			if (goomba.getPosition() <= positionX + 0.5 && goomba.getPosition() >= positionX - 1)
+			if (goomba.getPositionX() <= positionX + 0.5 && goomba.getPositionX() >= positionX - 1)
 			{
 				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f && !jumpTop && !goomba.getIsDead())
 				{
@@ -257,7 +266,7 @@ public class MyOpenGLRenderer implements Renderer {
 					playerJump(20);
 				}
 			}
-			else if (goomba.getPosition() <= -15)
+			else if (goomba.getPositionX() <= -15)
 			{
 				goomba = null;
 				soundkickPlayed = false;
@@ -277,7 +286,7 @@ public class MyOpenGLRenderer implements Renderer {
 		if (coin != null)
 		{
 			coin.drawCoin(currentTimeMillis());
-			if (coin.getPosition() <= positionX && coin.getPosition() >= positionX - 2)
+			if (coin.getPositionX() <= positionX && coin.getPositionX() >= positionX - 2)
 			{
 				if (actualPositionY >= GROUND && actualPositionY <= GROUND + 20 * 0.1f){
 					if (!soundCoinPlayed)
@@ -288,7 +297,7 @@ public class MyOpenGLRenderer implements Renderer {
 					coin.isCaught();
 				}
 			}
-			else if (coin.getPosition() <= -15)
+			else if (coin.getPositionX() <= -15)
 			{
 				coin = null;
 				soundCoinPlayed = false;
@@ -318,9 +327,9 @@ public class MyOpenGLRenderer implements Renderer {
 	}
 
 	// Called by an Touch event on main activity
-	public void isJumping(boolean param)
+	public void isTouching(boolean param)
 	{
-		player.isJumping(param);
+		player.isTouching(param);
 	}
 
 }

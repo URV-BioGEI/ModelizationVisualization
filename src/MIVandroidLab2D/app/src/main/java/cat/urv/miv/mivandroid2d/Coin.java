@@ -15,7 +15,10 @@ public class Coin {
     // Coin game logic
     private float
             positionX,  // current position of the characterManager
-            upPosition = -2.5f;  // Position to move when the characterManager is caught
+            positionY = 0,  // Position to move when the characterManager is caught
+            positionYInit = 0,
+            displacement = 0.1f;
+
     private int upFrames = 0;  // Counter to know how many frames the characterManager has been in the air when caught
     private boolean
             isCaught = false,  // Is the coin already caught? so we start playing the upward animation
@@ -25,7 +28,7 @@ public class Coin {
         this.gl = gl;
         this.context = context;
 
-        positionX = 13;
+        positionX = 13 + (float)Math.random() * 100;
         characterManager = new CharacterManager(gl, context, R.drawable.foreground_tiles, R.raw.coin);  // create new character manager
 
         // When created a new characterManager set moving animation of 150 speed
@@ -38,25 +41,32 @@ public class Coin {
 
         if (isCaught)
         {
-            upPosition += 0.3f;  // If is caught move the characterManager upwards
+            positionY += 0.3f;  // If is caught move the characterManager upwards
             upFrames++;  // count frames in the air
-            if (upFrames == 20) destroyable = true;  // When the characterManager reaches maximum position is destroyed
+            if (upFrames >= 20)
+            {
+                upFrames = 0;
+                isCaught = false;
+                positionY = positionYInit;
+                positionX = 13 + 100 * (float)Math.random();
+            }
         }
-        else positionX -= 0.1f;  // else we move the characterManager forward
+        else positionX -= displacement;  // else we move the characterManager forward
+        if (positionX < -15) positionX = 13 + 100 * (float)Math.random();
 
-        gl.glTranslatef(positionX, upPosition, -40.0f);
+        gl.glTranslatef(positionX, positionY, -40.0f);
         characterManager.draw();
         characterManager.update(time);
         gl.glPopMatrix();
 
     }
 
-    public float getPosition() {
+    public float getPositionX() {
         return positionX;
     }
 
-    public void isCaught() {
-        this.isCaught=true;
+    public void setCaught(boolean caught) {
+        isCaught = caught;
     }
 
     public boolean isDestroyable(){
@@ -75,7 +85,23 @@ public class Coin {
         }
     }
 
+    public void setDisplacement(float disp)
+    {
+        this.displacement = disp;
+    }
+
     public CharacterManager getCharacterManager() {
         return characterManager;
     }
+
+    public void setPositionYInit(float positionYInit) {
+        this.positionY = positionYInit;
+        this.positionYInit = positionYInit;
+    }
+
+    public float getPositionY() {
+        return positionY;
+    }
+
+
 }

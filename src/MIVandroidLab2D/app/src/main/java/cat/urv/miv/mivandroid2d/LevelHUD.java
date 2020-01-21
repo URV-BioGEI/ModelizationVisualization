@@ -6,8 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class LevelHUD {
     private CharacterManager characterManagerUnity, characterManagerTen, l, e, v, space;
-    private int level = 0;
-    Integer unity = 0, ten = 0;
+    private int level = 1;
     private GL10 gl;
     private Context context;
 
@@ -26,25 +25,29 @@ public class LevelHUD {
         v.setAnimation("V");
         space.setAnimation("space");
         characterManagerTen.setAnimation("0");
-        characterManagerUnity.setAnimation("0");
+        characterManagerUnity.setAnimation("1");
 
     }
 
     public void addLevel()
     {
         level++;
-        if (level == 100)
-        {
-            level = 0;
-        }
-        else
-        {
-            unity = level % 10;
-            ten = level / 10;
-            characterManagerUnity.setAnimation(unity.toString());
-            characterManagerUnity.setAnimation(ten.toString());
-        }
+        if (level > 99) level = 99;
+        updateAnimations();
 
+    }
+
+    public void updateAnimations()
+    {
+            characterManagerUnity.setAnimation(((Integer)(level % 10)).toString());
+            characterManagerTen.setAnimation(((Integer)(level / 10)).toString());
+    }
+
+    public void loseLevel()
+    {
+        level--;
+        if (level < 1) level = 1;
+        updateAnimations();
     }
 
     public void draw(float time)
@@ -64,10 +67,15 @@ public class LevelHUD {
         gl.glTranslatef(2, 0, 0);
         space.draw();
         gl.glTranslatef(2, 0, 0);
-        characterManagerUnity.draw();
-        gl.glTranslatef(2, 0, 0);
         characterManagerTen.draw();
+        gl.glTranslatef(2, 0, 0);
+        characterManagerUnity.draw();
+
 
         gl.glPopMatrix();
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

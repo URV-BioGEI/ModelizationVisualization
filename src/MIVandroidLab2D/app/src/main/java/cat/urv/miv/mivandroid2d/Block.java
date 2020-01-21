@@ -8,7 +8,7 @@ public class Block {
     private CharacterManager characterManager;
     private GL10 gl;
     private Context context;
-    private float position;
+    private float position, displacement;
     private boolean isSmashed = false;
 
     public Block(GL10 gl, Context context){
@@ -29,7 +29,7 @@ public class Block {
         }
         if (position < -15f)
         {
-            position += 20f;
+            position = 12f + (float)Math.random() * 100;
             characterManager.setAnimation("idle");
             isSmashed = false;
         }
@@ -38,7 +38,7 @@ public class Block {
         characterManager.draw();
         characterManager.update(time);
         gl.glPopMatrix();
-        position -=0.1f;
+        position -= displacement;
     }
 
     public CharacterManager getCharacterManager() {
@@ -51,6 +51,10 @@ public class Block {
 
     public void setSmashed(boolean smashed) {
         isSmashed = smashed;
+    }
+
+    public void setDisplacement(float displacement) {
+        this.displacement = displacement;
     }
 }
 
