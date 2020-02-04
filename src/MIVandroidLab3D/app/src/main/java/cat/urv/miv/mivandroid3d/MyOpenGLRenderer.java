@@ -11,10 +11,10 @@ import android.opengl.GLU;
 public class MyOpenGLRenderer implements Renderer{
 
 	private Context context;
-	private Object3D sphere, synth;
+	private Object3D sphere, synth, cube, monkey;
 	private Light l1, l2, l3;
 	private Camera camera;
-	private int angle;
+	private float angle;
 
 	public MyOpenGLRenderer(Context context){
 		this.context = context;
@@ -68,54 +68,62 @@ public class MyOpenGLRenderer implements Renderer{
 		// 3D-Objects
         sphere = new Object3D(context, R.raw.earth);
         synth = new Object3D(context, R.raw.synth);
+        cube = new Object3D(context, R.raw.cube);
+        monkey = new Object3D(context, R.raw.monkey);
+
 
 	}
 
 	// Update
 	public void onDrawFrame(GL10 gl) {
+		float midAngle = 0;
 
         // Clears the screen and depth buffer.
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-
 		gl.glLoadIdentity();
 
+		// Cmaera and lights
 		gl.glPushMatrix();
-
 		// Camera
 		camera.look();
 
-		// Movement of Lights
-		/*int midAngle = angle % 200;
-		if (midAngle > 100)
-			midAngle = 200 - midAngle;
-		gl.glTranslatef(midAngle * 0.1f, 0.0f, midAngle * -0.1f);
-		//gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);
 		// Lights
-		*/
-
 		l1.draw();
 		l2.draw();
 		l3.draw();
-
 		gl.glPopMatrix();
-
-		gl.glPushMatrix();
 
 		//Draw the sphere
-		gl.glTranslatef(0,0,-20f);
-		sphere.draw(gl);
-
-		//gl.glTranslatef(0, 0, 0);
-		/*gl.glPopMatrix();
-
 		gl.glPushMatrix();
-		gl.glTranslatef(0,0,-50f);
+		gl.glTranslatef(0,5,-15f);
+		gl.glScalef(0.4f, 0.4f, 0.4f);
+		sphere.draw(gl);
+		gl.glPopMatrix();
 
-		synth.draw(gl);*/
+		// Draw syntethizer
+		gl.glPushMatrix();
+		gl.glTranslatef(0,-4,-8);
+		synth.draw(gl);
+		gl.glPopMatrix();
+
+		// Draw cube
+		gl.glPushMatrix();
+		gl.glScalef(0.4f, 0.4f, 0.4f);
+		gl.glTranslatef(angle % 15 - 10,-5.4f,-24);
+		cube.draw(gl);
+		gl.glPopMatrix();
+
+		// Draw monkey
+		gl.glPushMatrix();
+		gl.glScalef(0.4f, 0.4f, 0.4f);
+		gl.glRotatef(angle % 360, 0, 0, 1);
+
+		gl.glTranslatef(0,2f,-15);
+		monkey.draw(gl);
 		gl.glPopMatrix();
 
 
-		//angle += 3;
+		angle += 0.3;
 	}
 
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
