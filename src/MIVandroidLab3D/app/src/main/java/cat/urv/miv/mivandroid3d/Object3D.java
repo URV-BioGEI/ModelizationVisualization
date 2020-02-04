@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
+import android.util.Log;
 
 public class Object3D {
 
@@ -55,6 +56,9 @@ public class Object3D {
 			BufferedReader inb = new BufferedReader(new InputStreamReader(is), 1024);
 			while ((line = inb.readLine()) != null) {
 				tmp = line.split(" ");
+				//Log.println(Log.INFO, "", "DEBUG: " + line);
+				System.out.println("DEBUG: " + line);
+
 				if (tmp[0].equalsIgnoreCase("v")) {
 
 					for (int i = 1; i < 4; i++) {

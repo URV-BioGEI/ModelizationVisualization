@@ -59,4 +59,10 @@ public class Light {
 		difuse.position(0);
 	}
 
+	public void draw(){
+		gl.glLightfv( lightid, gl.GL_POSITION, posicio );
+		gl.glLightfv( lightid, gl.GL_AMBIENT, ambient );
+		gl.glLightfv( lightid, gl.GL_DIFFUSE, difuse );
+	}
+
 }
